@@ -96,23 +96,23 @@ class MLTimeObjectTestCase(unittest.TestCase):
         # I cannot depend on the following test working across platforms yet, so
         # I am currently content with the UpdateTime() method not causing an
         # exception.
-        #self.failUnless(abs(timeObject.GetTime() - 1.0) < 1.0e-3)
+        #self.assertTrue(abs(timeObject.GetTime() - 1.0) < 1.0e-3)
 
     def testUpdateTime1(self):
         "Test ML.TimeObject UpdateTime method with argument"
         timeObject = ML.TimeObject()
         self.assertEqual(timeObject.GetTime(), 0.0)
         timeObject.UpdateTime(1.0)
-        self.failUnless(abs(timeObject.GetTime() - 1.0) < 1.0e-3)
+        self.assertTrue(abs(timeObject.GetTime() - 1.0) < 1.0e-3)
 
     def testResetTimer(self):
         "Test ML.TimeObject ResetTimer method"
         timeObject = ML.TimeObject()
         self.assertEqual(timeObject.GetTime(), 0.0)
         timeObject.UpdateTime(1.0)
-        self.failUnless(abs(timeObject.GetTime() - 1.0) < 1.0e-3)
+        self.assertTrue(abs(timeObject.GetTime() - 1.0) < 1.0e-3)
         timeObject.ResetTimer()
-        self.failUnless(abs(timeObject.GetTime() - 1.0) < 1.0e-3)
+        self.assertTrue(abs(timeObject.GetTime() - 1.0) < 1.0e-3)
 
 ##########################################################################
 

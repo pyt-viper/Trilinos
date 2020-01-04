@@ -117,7 +117,7 @@ class MLPyMatrixTestCase(unittest.TestCase):
         myPID = self.comm.MyPID()
         rows = list(range(myPID*10, (myPID+1)*10))
         rowSpace = self.matrix.GetRowSpace()
-        self.failUnless(rowSpace.GetMyGlobalElements(), rows)
+        self.assertTrue(rowSpace.GetMyGlobalElements(), rows)
 
 ##########################################################################
 

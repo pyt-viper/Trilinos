@@ -77,7 +77,7 @@ class AnasaziTestCase(unittest.TestCase):
         "Test Anasazi Anasazi_Version function"
         front   = "Anasazi Version "
         version = Anasazi.Anasazi_Version()
-        self.assertEquals(version[:len(front)], front)
+        self.assertEqual(version[:len(front)], front)
 
     def setUp(self):
         self.comm = Epetra.PyComm()

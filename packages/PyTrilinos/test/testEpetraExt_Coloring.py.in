@@ -97,7 +97,7 @@ class ColoringTestCase(unittest.TestCase):
         self.assertEqual(numColors   , 3)
         self.assertEqual(defaultColor, 0)
         for c in range(numColors):
-            self.assert_(colorMap.NumElementsWithColor(c+1) in (3,4))
+            self.assertTrue(colorMap.NumElementsWithColor(c+1) in (3,4))
 
     def testColorMapIndex(self):
         "Test EpetraExt MapColoring-to-ColorMapIndex transform"

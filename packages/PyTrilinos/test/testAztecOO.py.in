@@ -125,12 +125,12 @@ class AztecOOTestCase(unittest.TestCase):
         "Test AztecOO AztecOO_Version function"
         front   = "AztecOO in Trilinos "
         version = AztecOO.AztecOO_Version()
-        self.assertEquals(version[:len(front)], front)
+        self.assertEqual(version[:len(front)], front)
 
     def testConstructor0(self):
         "Test AztecOO default constructor"
         solver = AztecOO.AztecOO()
-        self.failUnless(isinstance(solver, AztecOO.AztecOO))
+        self.assertTrue(isinstance(solver, AztecOO.AztecOO))
 
     def testConstructor1(self):
         "Test AztecOO (Epetra.Operator, Epetra.MultiVector, Epetra.MultiVector) constructor"
@@ -140,8 +140,8 @@ class AztecOOTestCase(unittest.TestCase):
         x.Random()
         b.Random()
         solver = AztecOO.AztecOO(op, x, b)
-        self.failUnless((solver.GetLHS() == x).all())
-        self.failUnless((solver.GetRHS() == b).all())
+        self.assertTrue((solver.GetLHS() == x).all())
+        self.assertTrue((solver.GetRHS() == b).all())
 
     def testConstructor2(self):
         "Test AztecOO (Epetra.RowMatrix, Epetra.MultiVector, Epetra.MultiVector) constructor"
@@ -151,8 +151,8 @@ class AztecOOTestCase(unittest.TestCase):
         x.Random()
         b.Random()
         solver = AztecOO.AztecOO(rm, x, b)
-        self.failUnless((solver.GetLHS() == x).all())
-        self.failUnless((solver.GetRHS() == b).all())
+        self.assertTrue((solver.GetLHS() == x).all())
+        self.assertTrue((solver.GetRHS() == b).all())
 
     def testConstructor3(self):
         "Test AztecOO (Epetra.LinearProblem) constructor"
@@ -163,8 +163,8 @@ class AztecOOTestCase(unittest.TestCase):
         b.Random()
         lp = Epetra.LinearProblem(rm, x, b)
         solver = AztecOO.AztecOO(lp)
-        self.failUnless((solver.GetLHS() == x).all())
-        self.failUnless((solver.GetRHS() == b).all())
+        self.assertTrue((solver.GetLHS() == x).all())
+        self.assertTrue((solver.GetRHS() == b).all())
 
     def testConstructor4(self):
         "Test AztecOO copy constructor, with non-Epetra.LinearOperator source"
@@ -175,8 +175,8 @@ class AztecOOTestCase(unittest.TestCase):
         b.Random()
         solver1 = AztecOO.AztecOO(op, x, b)
         solver2 = AztecOO.AztecOO(solver1)
-        self.failUnless((solver2.GetLHS() == x).all())
-        self.failUnless((solver2.GetRHS() == b).all())
+        self.assertTrue((solver2.GetLHS() == x).all())
+        self.assertTrue((solver2.GetRHS() == b).all())
 
     def testConstructor5(self):
         "Test AztecOO copy constructor with Epetra.LinearOperator source"
@@ -188,8 +188,8 @@ class AztecOOTestCase(unittest.TestCase):
         lp = Epetra.LinearProblem(rm,x,b)
         solver1 = AztecOO.AztecOO(lp)
         solver2 = AztecOO.AztecOO(solver1)
-        self.failUnless((solver2.GetLHS() == x).all())
-        self.failUnless((solver2.GetRHS() == b).all())
+        self.assertTrue((solver2.GetLHS() == x).all())
+        self.assertTrue((solver2.GetRHS() == b).all())
 
     def testSetProblem(self):
         "Test AztecOO SetProblem method"
@@ -200,24 +200,24 @@ class AztecOOTestCase(unittest.TestCase):
         b.Random()
         lp = Epetra.LinearProblem(rm, x, b)
         solver = AztecOO.AztecOO()
-        self.failUnless(solver.GetProblem() is None)
+        self.assertTrue(solver.GetProblem() is None)
         solver.SetProblem(lp)
-        self.failUnless(isinstance(solver.GetProblem()     , Epetra.LinearProblem))
-        self.failUnless(isinstance(solver.GetUserOperator(), Epetra.Operator     ))
+        self.assertTrue(isinstance(solver.GetProblem()     , Epetra.LinearProblem))
+        self.assertTrue(isinstance(solver.GetUserOperator(), Epetra.Operator     ))
         # On beowulf, GetUserMatrix() returns None, but it should return the
         # TestRowMatrix rm.  This test works as expected under Mac OS X, but I
         # have it commented out until bug 3620 is resolved.
-        #self.failUnless(isinstance(solver.GetUserMatrix()  , Epetra.RowMatrix    ))
-        self.failUnless((solver.GetLHS() == x).all())
-        self.failUnless((solver.GetRHS() == b).all())
+        #self.assertTrue(isinstance(solver.GetUserMatrix()  , Epetra.RowMatrix    ))
+        self.assertTrue((solver.GetLHS() == x).all())
+        self.assertTrue((solver.GetRHS() == b).all())
 
     def testSetUserOperator(self):
         "Test AztecOO SetUserOperator method"
         op = TestRowMatrix(self.map)
         solver = AztecOO.AztecOO()
-        self.failUnless(solver.GetUserOperator() is None)
+        self.assertTrue(solver.GetUserOperator() is None)
         solver.SetUserOperator(op)
-        self.failUnless(isinstance(solver.GetUserOperator(), Epetra.Operator))
+        self.assertTrue(isinstance(solver.GetUserOperator(), Epetra.Operator))
 
 ####################################################################
 

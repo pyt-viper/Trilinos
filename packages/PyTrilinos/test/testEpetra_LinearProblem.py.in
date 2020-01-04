@@ -126,35 +126,35 @@ class EpetraLinearProblemTestCase(unittest.TestCase):
     def testConstructor0(self):
         "Test Epetra.LinearProblem default constructor"
         lp = Epetra.LinearProblem()
-        self.failUnless(isinstance(lp,Epetra.LinearProblem))
+        self.assertTrue(isinstance(lp,Epetra.LinearProblem))
         self.assertEqual(lp.CheckInput(), -3)
 
     def testConstructor1(self):
         "Test Epetra.LinearProblem (RowMatrix,MultiVector,MultiVector) constructor"
         rm = TestRowMatrix(self.map)
         lp = Epetra.LinearProblem(rm, self.x, self.b)
-        self.failUnless(isinstance(lp,Epetra.LinearProblem))
+        self.assertTrue(isinstance(lp,Epetra.LinearProblem))
         self.assertEqual(lp.CheckInput(), 0)
         A = lp.GetMatrix()
-        self.failUnless(isinstance(A,Epetra.Operator))
-        self.failUnless(isinstance(A,Epetra.RowMatrix))
+        self.assertTrue(isinstance(A,Epetra.Operator))
+        self.assertTrue(isinstance(A,Epetra.RowMatrix))
 
     def testConstructor2(self):
         "Test Epetra.LinearProblem (Operator,MultiVector,MultiVector) constructor"
         op = TestOperator(self.map)
         lp = Epetra.LinearProblem(op, self.x, self.b)
-        self.failUnless(isinstance(lp,Epetra.LinearProblem))
+        self.assertTrue(isinstance(lp,Epetra.LinearProblem))
         self.assertEqual(lp.CheckInput(), 1)
         A = lp.GetOperator()
-        self.failUnless(isinstance(A,Epetra.Operator))
-        self.failIf(isinstance(A,Epetra.RowMatrix))
+        self.assertTrue(isinstance(A,Epetra.Operator))
+        self.assertFalse(isinstance(A,Epetra.RowMatrix))
 
     def testConstructor3(self):
         "Test Epetra.LinearProblem copy constructor"
         lp = Epetra.LinearProblem(self.linProb)
         #self.assertEqual(id(lp.GetMatrix()), id(self.linProb.GetMatrix()))
-        self.failUnless((lp.GetLHS() == self.linProb.GetLHS()).all())
-        self.failUnless((lp.GetRHS() == self.linProb.GetRHS()).all())
+        self.assertTrue((lp.GetLHS() == self.linProb.GetLHS()).all())
+        self.assertTrue((lp.GetRHS() == self.linProb.GetRHS()).all())
 
     def testIsOperatorSymmetric(self):
         "Test Epetra.LinearProblem IsOperatorSymmetric/AssertSymmetric methods"
@@ -192,8 +192,8 @@ class EpetraLinearProblemTestCase(unittest.TestCase):
         self.x.Random()
         lp.SetLHS(self.x)
         lhs = lp.GetLHS()
-        self.failUnless(isinstance(lhs,Epetra.MultiVector))
-        self.failUnless((lhs == self.x).all())
+        self.assertTrue(isinstance(lhs,Epetra.MultiVector))
+        self.assertTrue((lhs == self.x).all())
 
     def testSetGetRHS(self):
         "Test Epetra.LinearProblem SetRHS/GetRHS methods"
@@ -202,8 +202,8 @@ class EpetraLinearProblemTestCase(unittest.TestCase):
         self.b.Random()
         lp.SetRHS(self.b)
         rhs = lp.GetRHS()
-        self.failUnless(isinstance(rhs,Epetra.MultiVector))
-        self.failUnless((rhs == self.b).all())
+        self.assertTrue(isinstance(rhs,Epetra.MultiVector))
+        self.assertTrue((rhs == self.b).all())
 
     def testCheckInput0(self):
         "Test Epetra.LinearProblem CheckInput method for complete problem"

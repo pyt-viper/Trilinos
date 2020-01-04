@@ -861,16 +861,16 @@ class EpetraCrsMatrixTestCase(unittest.TestCase):
         "Test Epetra.CrsMatrix DomainMap method"
         crsm = Epetra.CrsMatrix(Epetra.Copy, self.rowMap, 3)
         domainMap = crsm.DomainMap()
-        self.failUnless(self.rowMap.SameAs(domainMap))
+        self.assertTrue(self.rowMap.SameAs(domainMap))
 
     def testRangeMap(self):
         "Test Epetra.CrsMatrix RangeMap method"
         crsm1 = Epetra.CrsMatrix(Epetra.Copy, self.rowMap, 3)
         rangeMap1 = crsm1.RangeMap()
-        self.failUnless(self.rowMap.SameAs(rangeMap1))
+        self.assertTrue(self.rowMap.SameAs(rangeMap1))
         crsm2 = Epetra.CrsMatrix(Epetra.Copy, self.rowMap, self.colMap, 3, False)
         rangeMap2 = crsm2.RangeMap()
-        self.failUnless(self.rowMap.SameAs(rangeMap2))
+        self.assertTrue(self.rowMap.SameAs(rangeMap2))
 
     def testImporter(self):
         "Test Epetra.CrsMatrix Importer method"
@@ -1054,16 +1054,16 @@ class EpetraCrsMatrixTestCase(unittest.TestCase):
         "Test Epetra.CrsMatrix OperatorDomainMap method"
         crsm = Epetra.CrsMatrix(Epetra.Copy, self.rowMap, 3)
         domainMap = crsm.OperatorDomainMap()
-        self.failUnless(self.rowMap.SameAs(domainMap))
+        self.assertTrue(self.rowMap.SameAs(domainMap))
 
     def testOperatorRangeMap(self):
         "Test Epetra.CrsMatrix OperatorRangeMap method"
         crsm1 = Epetra.CrsMatrix(Epetra.Copy, self.rowMap, 3)
         rangeMap1 = crsm1.OperatorRangeMap()
-        self.failUnless(self.rowMap.SameAs(rangeMap1))
+        self.assertTrue(self.rowMap.SameAs(rangeMap1))
         crsm2 = Epetra.CrsMatrix(Epetra.Copy, self.rowMap, self.colMap, 3, False)
         rangeMap2 = crsm2.OperatorRangeMap()
-        self.failUnless(self.rowMap.SameAs(rangeMap2))
+        self.assertTrue(self.rowMap.SameAs(rangeMap2))
 
     def testSetitem(self):
         "Test Epetra CrsMatrix __setitem__ method"

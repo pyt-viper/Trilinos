@@ -101,7 +101,7 @@ class EpetraImportTestCase(unittest.TestCase):
 
     def testConstructors1(self):
         "Test Epetra.Import constructor"
-        self.assertEquals(self.importer.Label(), "Epetra::Import")
+        self.assertEqual(self.importer.Label(), "Epetra::Import")
         source = self.importer.SourceMap()
         target = self.importer.TargetMap()
         self.assertEqual(source.SameAs(self.srcMap), True)
@@ -112,7 +112,7 @@ class EpetraImportTestCase(unittest.TestCase):
     def testConstructors2(self):
         "Test Epetra.Import copy constructor"
         importer = Epetra.Import(self.importer)
-        self.assertEquals(importer.Label(), "Epetra::Import")
+        self.assertEqual(importer.Label(), "Epetra::Import")
         source   = importer.SourceMap()
         target   = importer.TargetMap()
         self.assertEqual(source.SameAs(self.srcMap), True)
@@ -248,7 +248,7 @@ class EpetraImportTestCase(unittest.TestCase):
     #     lines = 47 + 2*self.myN*self.myN*self.numProc
     #     if self.myPID == 0: lines += 14
     #     if self.numProc == 1: lines -= 10
-    #     self.assertEquals(len(s),lines)
+    #     self.assertEqual(len(s),lines)
 
     # def testStr(self):
     #     "Test Epetra.Import __str__ method"
@@ -259,7 +259,7 @@ class EpetraImportTestCase(unittest.TestCase):
     #     lines = 47 + 2*self.myN*self.myN*self.numProc
     #     if self.myPID == 0: lines += 14
     #     if self.numProc == 1: lines -= 10
-    #     self.assertEquals(len(s),lines)
+    #     self.assertEqual(len(s),lines)
 
 ##########################################################################
 
@@ -295,7 +295,7 @@ class EpetraExportTestCase(unittest.TestCase):
 
     def testConstructors1(self):
         "Test Epetra.Export constructor"
-        self.assertEquals(self.exporter.Label(), "Epetra::Export")
+        self.assertEqual(self.exporter.Label(), "Epetra::Export")
         source = self.exporter.SourceMap()
         target = self.exporter.TargetMap()
         self.assertEqual(source.SameAs(self.srcMap), True)
@@ -306,7 +306,7 @@ class EpetraExportTestCase(unittest.TestCase):
     def testConstructors2(self):
         "Test Epetra.Export copy constructor"
         exporter = Epetra.Export(self.exporter)
-        self.assertEquals(exporter.Label(), "Epetra::Export")
+        self.assertEqual(exporter.Label(), "Epetra::Export")
         source   = exporter.SourceMap()
         target   = exporter.TargetMap()
         self.assertEqual(source.SameAs(self.srcMap), True)
@@ -444,7 +444,7 @@ class EpetraExportTestCase(unittest.TestCase):
     #     lines = 47 + 2*self.myN*self.myN*self.numProc
     #     if self.myPID == 0: lines += 14
     #     if self.numProc == 1: lines -= 10
-    #     self.assertEquals(len(s),lines)
+    #     self.assertEqual(len(s),lines)
 
     # def testStr(self):
     #     "Test Epetra.Export __str__ method"
@@ -455,7 +455,7 @@ class EpetraExportTestCase(unittest.TestCase):
     #     lines = 47 + 2*self.myN*self.myN*self.numProc
     #     if self.myPID == 0: lines += 14
     #     if self.numProc == 1: lines -= 10
-    #     self.assertEquals(len(s),lines)
+    #     self.assertEqual(len(s),lines)
 
 ##########################################################################
 

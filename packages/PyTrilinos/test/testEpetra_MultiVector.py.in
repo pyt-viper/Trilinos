@@ -87,18 +87,18 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
     def testConstructor01(self):
         "Test Epetra.MultiVector (BlockMap,int,bool) constructor"
         emv = Epetra.MultiVector(self.map,2,True)
-        self.assertEquals(emv.Label(),        "Epetra::MultiVector"     )
-        self.assertEquals(emv.NumVectors(),   2                         )
-        self.assertEquals(emv.MyLength(),     self.length               )
-        self.assertEquals(emv.GlobalLength(), self.length*comm.NumProc())
+        self.assertEqual(emv.Label(),        "Epetra::MultiVector"     )
+        self.assertEqual(emv.NumVectors(),   2                         )
+        self.assertEqual(emv.MyLength(),     self.length               )
+        self.assertEqual(emv.GlobalLength(), self.length*comm.NumProc())
 
     def testConstructor02(self):
         "Test Epetra.MultiVector (BlockMap,int) constructor"
         emv = Epetra.MultiVector(self.map,3)
-        self.assertEquals(emv.Label(),        "Epetra::MultiVector"     )
-        self.assertEquals(emv.NumVectors(),   3                         )
-        self.assertEquals(emv.MyLength(),     self.length               )
-        self.assertEquals(emv.GlobalLength(), self.length*comm.NumProc())
+        self.assertEqual(emv.Label(),        "Epetra::MultiVector"     )
+        self.assertEqual(emv.NumVectors(),   3                         )
+        self.assertEqual(emv.MyLength(),     self.length               )
+        self.assertEqual(emv.GlobalLength(), self.length*comm.NumProc())
 
     def testConstructor03(self):
         "Test Epetra.MultiVector (BlockMap,bad-list) constructor"
@@ -115,21 +115,21 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
         "Test Epetra.MultiVector (BlockMap,1D-correct-list) constructor"
         list = [0, 1.0, 2, 3.14, 2.17, 1.5, 1, 0.5, 0.0]
         emv = Epetra.MultiVector(self.map,list)
-        self.assertEquals(emv.Label(),        "Epetra::MultiVector"     )
-        self.assertEquals(emv.NumVectors(),   1                         )
-        self.assertEquals(emv.MyLength(),     self.length               )
-        self.assertEquals(emv.GlobalLength(), self.length*comm.NumProc())
-        self.failUnless((emv[0,:] == list).all())
+        self.assertEqual(emv.Label(),        "Epetra::MultiVector"     )
+        self.assertEqual(emv.NumVectors(),   1                         )
+        self.assertEqual(emv.MyLength(),     self.length               )
+        self.assertEqual(emv.GlobalLength(), self.length*comm.NumProc())
+        self.assertTrue((emv[0,:] == list).all())
 
     def testConstructor06(self):
         "Test Epetra.MultiVector (BlockMap,1D-big-list) constructor"
         list = [0, 1.0, 2, 3.14, 2.17, 1.5, 1, 0.5, 0.0, -1, -2]
         emv = Epetra.MultiVector(self.map,list)
-        self.assertEquals(emv.Label(),        "Epetra::MultiVector"     )
-        self.assertEquals(emv.NumVectors(),   1                         )
-        self.assertEquals(emv.MyLength(),     self.length               )
-        self.assertEquals(emv.GlobalLength(), self.length*comm.NumProc())
-        self.failUnless((emv[0,:] == list[:emv.shape[1]]).all())
+        self.assertEqual(emv.Label(),        "Epetra::MultiVector"     )
+        self.assertEqual(emv.NumVectors(),   1                         )
+        self.assertEqual(emv.MyLength(),     self.length               )
+        self.assertEqual(emv.GlobalLength(), self.length*comm.NumProc())
+        self.assertTrue((emv[0,:] == list[:emv.shape[1]]).all())
 
     def testConstructor07(self):
         "Test Epetra.MultiVector (BlockMap,2D-small-list) constructor"
@@ -142,23 +142,23 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
         list = [[0, 1.0, 2, 3.14, 2.17, 1.5, 1, 0.5, 0.0],
                 [0.0, 0.5, 1, 1.5, 2.17, 3.14, 2, 1.0, 0]]
         emv = Epetra.MultiVector(self.map,list)
-        self.assertEquals(emv.Label(),        "Epetra::MultiVector"     )
-        self.assertEquals(emv.NumVectors(),   2                         )
-        self.assertEquals(emv.MyLength(),     self.length               )
-        self.assertEquals(emv.GlobalLength(), self.length*comm.NumProc())
-        self.failUnless((emv == list).all())
+        self.assertEqual(emv.Label(),        "Epetra::MultiVector"     )
+        self.assertEqual(emv.NumVectors(),   2                         )
+        self.assertEqual(emv.MyLength(),     self.length               )
+        self.assertEqual(emv.GlobalLength(), self.length*comm.NumProc())
+        self.assertTrue((emv == list).all())
 
     def testConstructor09(self):
         "Test Epetra.MultiVector (BlockMap,2D-big-list) constructor"
         list = [[0, 1.0, 2, 3.14, 2.17, 1.5, 1, 0.5, 0.0, -1, -2],
                 [0, 1.0, 2, 3.14, 2.17, 1.5, 1, 0.5, 0.0, -1, -2]]
         emv = Epetra.MultiVector(self.map,list)
-        self.assertEquals(emv.Label(),        "Epetra::MultiVector"     )
-        self.assertEquals(emv.NumVectors(),   2                         )
-        self.assertEquals(emv.MyLength(),     self.length               )
-        self.assertEquals(emv.GlobalLength(), self.length*comm.NumProc())
+        self.assertEqual(emv.Label(),        "Epetra::MultiVector"     )
+        self.assertEqual(emv.NumVectors(),   2                         )
+        self.assertEqual(emv.MyLength(),     self.length               )
+        self.assertEqual(emv.GlobalLength(), self.length*comm.NumProc())
         for i in range(emv.shape[0]):
-            self.failUnless((emv[i,:] == list[i][:emv.shape[1]]).all())
+            self.assertTrue((emv[i,:] == list[i][:emv.shape[1]]).all())
 
     def testConstructor10(self):
         "Test Epetra.MultiVector (BlockMap,3D-small-list) constructor"
@@ -172,11 +172,11 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
                 [[0.0, 0.5, 1], [1.5 , 2.17, 3.14], [2, 1.0, 0  ]]]
         emv = Epetra.MultiVector(self.map,list)
         emv.shape = (2,3,3)
-        self.assertEquals(emv.Label(),        "Epetra::MultiVector"     )
-        self.assertEquals(emv.NumVectors(),   2                         )
-        self.assertEquals(emv.MyLength(),     self.length               )
-        self.assertEquals(emv.GlobalLength(), self.length*comm.NumProc())
-        self.failUnless((emv == list).all())
+        self.assertEqual(emv.Label(),        "Epetra::MultiVector"     )
+        self.assertEqual(emv.NumVectors(),   2                         )
+        self.assertEqual(emv.MyLength(),     self.length               )
+        self.assertEqual(emv.GlobalLength(), self.length*comm.NumProc())
+        self.assertTrue((emv == list).all())
 
     def testConstructor12(self):
         "Test Epetra.MultiVector (BlockMap,3D-big-list) constructor"
@@ -184,13 +184,13 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
                 [[0, 1.0, 2, 3.14, 2.17], [1.5, 1, 0.5, 0.0, -1]],
                 [[0, 1.0, 2, 3.14, 2.17], [1.5, 1, 0.5, 0.0, -1]]]
         emv = Epetra.MultiVector(self.map,list)
-        self.assertEquals(emv.Label(),        "Epetra::MultiVector"     )
-        self.assertEquals(emv.NumVectors(),   3                         )
-        self.assertEquals(emv.MyLength(),     self.length               )
-        self.assertEquals(emv.GlobalLength(), self.length*comm.NumProc())
+        self.assertEqual(emv.Label(),        "Epetra::MultiVector"     )
+        self.assertEqual(emv.NumVectors(),   3                         )
+        self.assertEqual(emv.MyLength(),     self.length               )
+        self.assertEqual(emv.GlobalLength(), self.length*comm.NumProc())
         for i in range(emv.shape[0]):
             for j in range(len(list[i])):
-                self.assertEquals(emv[i,j], list[i][0][j])
+                self.assertEqual(emv[i,j], list[i][0][j])
 
     def testConstructor13(self):
         "Test Epetra.MultiVector (BlockMap) constructor"
@@ -200,22 +200,22 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
         "Test Epetra.MultiVector (1D-list) constructor"
         list = [0, 1.0, 2, 3.14, 2.17, 1.5, 1, 0.5, 0.0]
         emv = Epetra.MultiVector(list)
-        self.assertEquals(emv.Label(),        "Epetra::MultiVector")
-        self.assertEquals(emv.NumVectors(),   1                    )
-        self.assertEquals(emv.MyLength(),     len(list)            )
-        self.assertEquals(emv.GlobalLength(), len(list)            )
-        self.failUnless((emv[0,:] == list).all())
+        self.assertEqual(emv.Label(),        "Epetra::MultiVector")
+        self.assertEqual(emv.NumVectors(),   1                    )
+        self.assertEqual(emv.MyLength(),     len(list)            )
+        self.assertEqual(emv.GlobalLength(), len(list)            )
+        self.assertTrue((emv[0,:] == list).all())
 
     def testConstructor15(self):
         "Test Epetra.MultiVector (2D-list) constructor"
         list = [[0, 1.0, 2, 3.14, 2.17, 1.5, 1, 0.5, 0.0],
                 [0.0, 0.5, 1, 1.5, 2.17, 3.14, 2, 1.0, 0]]
         emv = Epetra.MultiVector(list)
-        self.assertEquals(emv.Label(),        "Epetra::MultiVector")
-        self.assertEquals(emv.NumVectors(),   2                    )
-        self.assertEquals(emv.MyLength(),     len(list[0])         )
-        self.assertEquals(emv.GlobalLength(), len(list[0])         )
-        self.failUnless((emv == list).all())
+        self.assertEqual(emv.Label(),        "Epetra::MultiVector")
+        self.assertEqual(emv.NumVectors(),   2                    )
+        self.assertEqual(emv.MyLength(),     len(list[0])         )
+        self.assertEqual(emv.GlobalLength(), len(list[0])         )
+        self.assertTrue((emv == list).all())
 
     def testConstructor16(self):
         "Test Epetra.MultiVector (3D-list) constructor"
@@ -224,13 +224,13 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
                 [[3.14,2  ,1.0], [0   ,0.0 ,0.5 ], [1,1.5,2.17]]]
         emv = Epetra.MultiVector(list)
         emv.shape = (3,3,3)
-        self.assertEquals(emv.Label(),        "Epetra::MultiVector")
-        self.assertEquals(emv.NumVectors(),   3                    )
-        self.assertEquals(emv.MyLength(),     3*len(list[0][0])    )
-        self.assertEquals(emv.GlobalLength(), 3*len(list[0][0])    )
+        self.assertEqual(emv.Label(),        "Epetra::MultiVector")
+        self.assertEqual(emv.NumVectors(),   3                    )
+        self.assertEqual(emv.MyLength(),     3*len(list[0][0])    )
+        self.assertEqual(emv.GlobalLength(), 3*len(list[0][0])    )
         for i in range(emv.shape[0]):
             for j in range(len(list[i])):
-                self.failUnless((emv[i,j] == list[i][j]).all())
+                self.assertTrue((emv[i,j] == list[i][j]).all())
 
     def testConstructor17(self):
         "Test Epetra.MultiVector (bad-list) constructor"
@@ -243,11 +243,11 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
                 [2, 1, 0, 0, 1, 2, 3, 4, 5]]
         emv1  = Epetra.MultiVector(self.map,list)
         emv2  = Epetra.MultiVector(Epetra.Copy,emv1)
-        self.assertEquals(emv2.Label(),        "Epetra::MultiVector"     )
-        self.assertEquals(emv2.NumVectors(),   2                         )
-        self.assertEquals(emv2.MyLength(),     self.length               )
-        self.assertEquals(emv2.GlobalLength(), self.length*comm.NumProc())
-        self.failUnless((abs(emv2[:,:] - emv1[:,:]) < 1.0e-10).all())
+        self.assertEqual(emv2.Label(),        "Epetra::MultiVector"     )
+        self.assertEqual(emv2.NumVectors(),   2                         )
+        self.assertEqual(emv2.MyLength(),     self.length               )
+        self.assertEqual(emv2.GlobalLength(), self.length*comm.NumProc())
+        self.assertTrue((abs(emv2[:,:] - emv1[:,:]) < 1.0e-10).all())
 
     def testConstructor19(self):
         "Test Epetra.MultiVector (Copy,MultiVector,range-of-1) constructor"
@@ -255,11 +255,11 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
                 [2, 1, 0, 0, 1, 2, 3, 4, 5]]
         emv1  = Epetra.MultiVector(self.map,list)
         emv2  = Epetra.MultiVector(Epetra.Copy,emv1,(1,))
-        self.assertEquals(emv2.Label(),        "Epetra::MultiVector"     )
-        self.assertEquals(emv2.NumVectors(),   1                         )
-        self.assertEquals(emv2.MyLength(),     self.length               )
-        self.assertEquals(emv2.GlobalLength(), self.length*comm.NumProc())
-        self.failUnless((abs(emv2[0,:] - emv1[1,:]) < 1.0e-10).all())
+        self.assertEqual(emv2.Label(),        "Epetra::MultiVector"     )
+        self.assertEqual(emv2.NumVectors(),   1                         )
+        self.assertEqual(emv2.MyLength(),     self.length               )
+        self.assertEqual(emv2.GlobalLength(), self.length*comm.NumProc())
+        self.assertTrue((abs(emv2[0,:] - emv1[1,:]) < 1.0e-10).all())
 
     def testConstructor20(self):
         "Test Epetra.MultiVector (Copy,MultiVector,range-of-4) constructor"
@@ -271,10 +271,10 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
         emv2       = Epetra.MultiVector(Epetra.Copy, emv1, range(4))
         emv1.shape = (8,3,3)
         emv2.shape = (4,3,3)
-        self.assertEquals(emv2.Label(),        "Epetra::MultiVector"     )
-        self.assertEquals(emv2.NumVectors(),   4                         )
-        self.assertEquals(emv2.MyLength(),     self.length               )
-        self.assertEquals(emv2.GlobalLength(), self.length*comm.NumProc())
+        self.assertEqual(emv2.Label(),        "Epetra::MultiVector"     )
+        self.assertEqual(emv2.NumVectors(),   4                         )
+        self.assertEqual(emv2.MyLength(),     self.length               )
+        self.assertEqual(emv2.GlobalLength(), self.length*comm.NumProc())
         for i in range(emv2.shape[0]):
             self.assertTrue((emv2[i] == emv1[i]).all())
 
@@ -289,10 +289,10 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
         emv2       = Epetra.MultiVector(Epetra.Copy, emv1, indexes)
         emv1.shape = (8,3,3)
         emv2.shape = (4,3,3)
-        self.assertEquals(emv2.Label(),        "Epetra::MultiVector"     )
-        self.assertEquals(emv2.NumVectors(),   4                         )
-        self.assertEquals(emv2.MyLength(),     self.length               )
-        self.assertEquals(emv2.GlobalLength(), self.length*comm.NumProc())
+        self.assertEqual(emv2.Label(),        "Epetra::MultiVector"     )
+        self.assertEqual(emv2.NumVectors(),   4                         )
+        self.assertEqual(emv2.MyLength(),     self.length               )
+        self.assertEqual(emv2.GlobalLength(), self.length*comm.NumProc())
         for i in range(emv2.shape[0]):
             self.assertTrue((emv2[i] == emv1[indexes[i]]).all())
 
@@ -313,11 +313,11 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
                 [2, 1, 0, 0, 1, 2, 3, 4, 5]]
         emv1  = Epetra.MultiVector(self.map,list)
         emv2  = Epetra.MultiVector(Epetra.View,emv1)
-        self.assertEquals(emv2.Label(),        "Epetra::MultiVector"     )
-        self.assertEquals(emv2.NumVectors(),   2                         )
-        self.assertEquals(emv2.MyLength(),     self.length               )
-        self.assertEquals(emv2.GlobalLength(), self.length*comm.NumProc())
-        self.failUnless((emv2[:,:] == emv1[:,:]).all())
+        self.assertEqual(emv2.Label(),        "Epetra::MultiVector"     )
+        self.assertEqual(emv2.NumVectors(),   2                         )
+        self.assertEqual(emv2.MyLength(),     self.length               )
+        self.assertEqual(emv2.GlobalLength(), self.length*comm.NumProc())
+        self.assertTrue((emv2[:,:] == emv1[:,:]).all())
 
     def testConstructor24(self):
         "Test Epetra.MultiVector (View,MultiVector,range-of-1) constructor"
@@ -325,10 +325,10 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
                 [2, 1, 0, 0, 1, 2, 3, 4, 5]]
         emv1 = Epetra.MultiVector(self.map,list)
         emv2 = Epetra.MultiVector(Epetra.View,emv1,(1,))
-        self.assertEquals(emv2.NumVectors(),1)
-        self.assertEquals(emv2.MyLength(),self.length)
-        self.assertEquals(emv2.GlobalLength(), self.length*comm.NumProc())
-        self.failUnless((emv2[0,:] == emv1[1,:]).all())
+        self.assertEqual(emv2.NumVectors(),1)
+        self.assertEqual(emv2.MyLength(),self.length)
+        self.assertEqual(emv2.GlobalLength(), self.length*comm.NumProc())
+        self.assertTrue((emv2[0,:] == emv1[1,:]).all())
 
     def testConstructor25(self):
         "Test Epetra.MultiVector (View,MultiVector,range-of-4) constructor"
@@ -340,9 +340,9 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
         emv2       = Epetra.MultiVector(Epetra.View,emv1,range(4))
         emv1.shape = (8,3,3)
         emv2.shape = (4,3,3)
-        self.assertEquals(emv2.NumVectors(),4)
-        self.assertEquals(emv2.MyLength(),self.length)
-        self.assertEquals(emv2.GlobalLength(), self.length*comm.NumProc())
+        self.assertEqual(emv2.NumVectors(),4)
+        self.assertEqual(emv2.MyLength(),self.length)
+        self.assertEqual(emv2.GlobalLength(), self.length*comm.NumProc())
         for i in range(emv2.shape[0]):
             self.assertTrue((emv2[i] == emv1[i]).all())
 
@@ -357,9 +357,9 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
         emv2       = Epetra.MultiVector(Epetra.View,emv1,indexes)
         emv1.shape = (8,3,3)
         emv2.shape = (4,3,3)
-        self.assertEquals(emv2.NumVectors(),4)
-        self.assertEquals(emv2.MyLength(),self.length)
-        self.assertEquals(emv2.GlobalLength(), self.length*comm.NumProc())
+        self.assertEqual(emv2.NumVectors(),4)
+        self.assertEqual(emv2.MyLength(),self.length)
+        self.assertEqual(emv2.GlobalLength(), self.length*comm.NumProc())
         for i in range(emv2.shape[0]):
             self.assertTrue((emv2[i] == emv1[indexes[i]]).all())
 
@@ -378,40 +378,40 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
         "Test Epetra.MultiVector copy constructor"
         emv1 = Epetra.MultiVector(self.map,4)
         emv2 = Epetra.MultiVector(emv1)
-        self.assertEquals(emv2.NumVectors(),   emv1.NumVectors()  )
-        self.assertEquals(emv2.MyLength(),     emv1.MyLength()    )
-        self.assertEquals(emv2.GlobalLength(), emv1.GlobalLength())
+        self.assertEqual(emv2.NumVectors(),   emv1.NumVectors()  )
+        self.assertEqual(emv2.MyLength(),     emv1.MyLength()    )
+        self.assertEqual(emv2.GlobalLength(), emv1.GlobalLength())
 
     def notestReplaceMap1(self):
         "Test Epetra.MultiVector ReplaceMap method with good map"
         blockMap = Epetra.BlockMap(3*self.comm.NumProc(),3,0,self.comm)
         emv = Epetra.MultiVector(self.map,3)
         result = emv.ReplaceMap(blockMap)
-        self.assertEquals(result, 0)
+        self.assertEqual(result, 0)
         newMap = emv.Map()
-        self.assertEquals(newMap.ElementSize(), blockMap.ElementSize())
+        self.assertEqual(newMap.ElementSize(), blockMap.ElementSize())
 
     def testReplaceMap2(self):
         "Test Epetra.MultiVector ReplaceMap method with bad map"
         blockMap = Epetra.BlockMap(2*self.comm.NumProc(),5,0,self.comm)
         emv = Epetra.MultiVector(self.map,4)
         result = emv.ReplaceMap(blockMap)
-        self.assertEquals(result, -1)
+        self.assertEqual(result, -1)
         newMap = emv.Map()
-        self.assertEquals(newMap.ElementSize(), self.map.ElementSize())
+        self.assertEqual(newMap.ElementSize(), self.map.ElementSize())
 
     def testReplaceGlobalValue1(self):
         "Test Epetra.MultiVector ReplaceGlobalValue method"
         emv = Epetra.MultiVector(self.map,self.numPyArray1)
         gid = 4
         lid = self.map.LID(gid)
-        self.assertEquals(emv[0,gid], 0.5)
+        self.assertEqual(emv[0,gid], 0.5)
         result = emv.ReplaceGlobalValue(gid,0,5.0)
         if lid >= 0:
-            self.assertEquals(result, 0)
-            self.assertEquals(emv[0,lid], 5.0)
+            self.assertEqual(result, 0)
+            self.assertEqual(emv[0,lid], 5.0)
         else:
-            self.assertEquals(result, 1)
+            self.assertEqual(result, 1)
 
     def testReplaceGlobalValue2(self):
         "Test Epetra.MultiVector ReplaceGlobalValue method for BlockMaps"
@@ -421,26 +421,26 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
         emv.shape = (1,3,3)
         gid = 1
         lid = self.map.LID(gid)
-        self.assertEquals(emv[0,gid,1], 0.5)
+        self.assertEqual(emv[0,gid,1], 0.5)
         result = emv.ReplaceGlobalValue(gid,1,0,5.0)
         if lid >= 0:
-            self.assertEquals(result, 0)
-            self.assertEquals(emv[0,lid,1], 5.0)
+            self.assertEqual(result, 0)
+            self.assertEqual(emv[0,lid,1], 5.0)
         else:
-            self.assertEquals(result, 1)
+            self.assertEqual(result, 1)
 
     def testSumIntoGlobalValue1(self):
         "Test Epetra.MultiVector SumIntoGlobalValue method"
         emv = Epetra.MultiVector(self.map,self.numPyArray1)
         gid = 4
         lid = self.map.LID(gid)
-        self.assertEquals(emv[0,gid], 0.5)
+        self.assertEqual(emv[0,gid], 0.5)
         result = emv.SumIntoGlobalValue(gid,0,0.5)
         if lid >= 0:
-            self.assertEquals(result, 0)
-            self.assertEquals(emv[0,lid], 1.0)
+            self.assertEqual(result, 0)
+            self.assertEqual(emv[0,lid], 1.0)
         else:
-            self.assertEquals(result, 1)
+            self.assertEqual(result, 1)
 
     def testSumIntoGlobalValue2(self):
         "Test Epetra.MultiVector SumIntoGlobalValue method for BlockMaps"
@@ -449,22 +449,22 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
         emv.shape = (1,3,3)  # 1 vector, 3 elements, 3 points per element
         gid = 1
         lid = self.map.LID(gid)
-        self.assertEquals(emv[0,gid,1], 0.5)
+        self.assertEqual(emv[0,gid,1], 0.5)
         result = emv.SumIntoGlobalValue(gid,1,0,0.5)
         if lid >= 0:
-            self.assertEquals(result, 0)
-            self.assertEquals(emv[0,lid,1], 1.0)
+            self.assertEqual(result, 0)
+            self.assertEqual(emv[0,lid,1], 1.0)
         else:
-            self.assertEquals(result, 1)
+            self.assertEqual(result, 1)
 
     def testReplaceMyValue1(self):
         "Test Epetra.MultiVector ReplaceMyValue method"
         emv = Epetra.MultiVector(self.map,self.numPyArray1)
         lid = 4
-        self.assertEquals(emv[0,lid], 0.5)
+        self.assertEqual(emv[0,lid], 0.5)
         result = emv.ReplaceMyValue(lid,0,5.0)
-        self.assertEquals(result, 0)
-        self.assertEquals(emv[0,lid], 5.0)
+        self.assertEqual(result, 0)
+        self.assertEqual(emv[0,lid], 5.0)
 
     def testReplaceMyValue2(self):
         "Test Epetra.MultiVector ReplaceMyValue method for BlockMaps"
@@ -472,19 +472,19 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
         emv = Epetra.MultiVector(map,self.numPyArray1)
         emv.shape = (1,3,3)  # 1 vector, 3 elements, 3 points per element
         lid = 1
-        self.assertEquals(emv[0,lid,1], 0.5)
+        self.assertEqual(emv[0,lid,1], 0.5)
         result = emv.ReplaceMyValue(lid,1,0,5.0)
-        self.assertEquals(result, 0)
-        self.assertEquals(emv[0,lid,1], 5.0)
+        self.assertEqual(result, 0)
+        self.assertEqual(emv[0,lid,1], 5.0)
 
     def testSumIntoMyValue1(self):
         "Test Epetra.MultiVector SumIntoMyValue method"
         emv = Epetra.MultiVector(self.map,self.numPyArray1)
         lid = 4
-        self.assertEquals(emv[0,lid], 0.5)
+        self.assertEqual(emv[0,lid], 0.5)
         result = emv.SumIntoMyValue(lid,0,0.5)
-        self.assertEquals(result, 0)
-        self.assertEquals(emv[0,lid], 1.0)
+        self.assertEqual(result, 0)
+        self.assertEqual(emv[0,lid], 1.0)
 
     def testSumIntoMyValue2(self):
         "Test Epetra.MultiVector SumIntoMyValue method for BlockMaps"
@@ -492,19 +492,19 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
         emv = Epetra.MultiVector(map,self.numPyArray1)
         emv.shape = (1,3,3)  # 1 vector, 3 elements, 3 points per element
         lid = 1
-        self.assertEquals(emv[0,lid,1], 0.5)
+        self.assertEqual(emv[0,lid,1], 0.5)
         result = emv.SumIntoMyValue(lid,1,0,0.5)
-        self.assertEquals(result, 0)
-        self.assertEquals(emv[0,lid,1], 1.0)
+        self.assertEqual(result, 0)
+        self.assertEqual(emv[0,lid,1], 1.0)
 
     def testPutScalar(self):
         "Test Epetra.MultiVector PutScalar method"
         numVec = 3
         emv    = Epetra.MultiVector(self.map,numVec,True)
-        self.failUnless((emv == 0.0).all())
+        self.assertTrue((emv == 0.0).all())
         scalar = 3.14
         emv.PutScalar(scalar)
-        self.failUnless((emv == scalar).all())
+        self.assertTrue((emv == scalar).all())
 
     def testRandom(self):
         "Test Epetra.MultiVector Random method"
@@ -512,48 +512,48 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
         emv    = Epetra.MultiVector(self.map,numVec)
         scalar = 3.14
         emv.PutScalar(scalar)
-        self.failUnless((emv == scalar).all())
+        self.assertTrue((emv == scalar).all())
         emv.Random()
         for v in range(numVec):
             for i in range(self.map.NumMyPoints()):
-                self.failUnless(emv[v,i] > -1.0)
-                self.failUnless(emv[v,i] <  1.0)
+                self.assertTrue(emv[v,i] > -1.0)
+                self.assertTrue(emv[v,i] <  1.0)
 
     def testExtractCopy(self):
         "Test Epetra.MultiVector ExtractCopy method"
         a     = [self.numPyArray1] * 4
         emv   = Epetra.MultiVector(self.map,a)
         array = emv.ExtractCopy()
-        self.assertEquals(type(array), ndarray)
-        self.failUnless((emv == array).all())
-        self.assertEquals(emv.array is array, False)
+        self.assertEqual(type(array), ndarray)
+        self.assertTrue((emv == array).all())
+        self.assertEqual(emv.array is array, False)
 
     def testExtractView(self):
         "Test Epetra.MultiVector ExtractView method"
         a     = [self.numPyArray1] * 4
         emv   = Epetra.MultiVector(self.map,a)
         array = emv.ExtractView()
-        self.assertEquals(type(array), ndarray)
-        self.failUnless((emv == array).all())
-        self.assertEquals(emv.array is array, True)
+        self.assertEqual(type(array), ndarray)
+        self.assertTrue((emv == array).all())
+        self.assertEqual(emv.array is array, True)
 
     def testNumVectors(self):
         "Test Epetra.MultiVector NumVectors method"
         for i in range(1,8):
             emv = Epetra.MultiVector(self.map,i)
-            self.assertEquals(emv.NumVectors(), i)
+            self.assertEqual(emv.NumVectors(), i)
 
     def testMyLength(self):
         "Test Epetra.MultiVector MyLength method"
         a   = [self.numPyArray1] * 3
         emv = Epetra.MultiVector(self.map,a)
-        self.assertEquals(emv.MyLength(), self.length)
+        self.assertEqual(emv.MyLength(), self.length)
 
     def testGlobalLength(self):
         "Test Epetra.MultiVector GlobalLength method"
         a   = [self.numPyArray1] * 3
         emv = Epetra.MultiVector(self.map,a)
-        self.assertEquals(emv.GlobalLength(), self.length*self.comm.NumProc())
+        self.assertEqual(emv.GlobalLength(), self.length*self.comm.NumProc())
 
     def testConstantStride(self):
         "Test Epetra.MultiVector ConstantStride method"
@@ -564,8 +564,8 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
         emv1  = Epetra.MultiVector(self.map,multiArray)
         indexes = (0,2,3,7)
         emv2  = Epetra.MultiVector(Epetra.View,emv1,indexes)
-        self.assertEquals(emv1.ConstantStride(), True )
-        self.assertEquals(emv2.ConstantStride(), False)
+        self.assertEqual(emv1.ConstantStride(), True )
+        self.assertEqual(emv2.ConstantStride(), False)
 
     def testStride(self):
         "Test Epetra.MultiVector Stride method"
@@ -574,23 +574,23 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
                        [-3.4,  5.6, -7.8]]
         multiArray = [squareArray] * 8
         emv  = Epetra.MultiVector(self.map,multiArray)
-        self.assertEquals(emv.Stride(), 9)
+        self.assertEqual(emv.Stride(), 9)
 
     def testSeed(self):
         "Test Epetra.MultiVector Seed method"
         emv  = Epetra.MultiVector(self.map,1)
         seed = emv.Seed()
         max  = 2**31 - 1
-        self.assertEquals(seed>0,   True)
-        self.assertEquals(seed<max, True)
+        self.assertEqual(seed>0,   True)
+        self.assertEqual(seed<max, True)
 
     def testSetSeed1(self):
         "Test Epetra.MultiVector SetSeed method"
         emv    = Epetra.MultiVector(self.map,1)
         seed   = 2005
         result = emv.SetSeed(seed)
-        self.assertEquals(result,     0   )
-        self.assertEquals(emv.Seed(), seed)
+        self.assertEqual(result,     0   )
+        self.assertEqual(emv.Seed(), seed)
 
     def testSetSeed2(self):
         "Test Epetra.MultiVector SetSeed method with negative seed"
@@ -626,17 +626,17 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
         emv2   = Epetra.MultiVector(map,array2)
         dot    = emv1.Dot(emv2)
         result = array([-14,-86])*self.comm.NumProc()
-        self.failUnless((dot == result).all())
+        self.assertTrue((dot == result).all())
 
     def testAbs(self):
         "Test Epetra.MultiVector Abs method"
         a    = array([self.numPyArray1,self.numPyArray2])
         emv1 = Epetra.MultiVector(self.map,a)
         emv2 = Epetra.MultiVector(self.map,2)
-        self.failUnless((emv2[:] == 0.0).all())
+        self.assertTrue((emv2[:] == 0.0).all())
         result = emv2.Abs(emv1)
-        self.assertEquals(result,0)
-        self.failUnless((emv2[:] == abs(a)).all())
+        self.assertEqual(result,0)
+        self.assertTrue((emv2[:] == abs(a)).all())
 
     def testReciprocal(self):
         "Test Epetra.MultiVector Reciprocal method"
@@ -644,38 +644,38 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
         a[0,0] = a[1,0] = 1.0  # Don't want to invert zero
         emv1 = Epetra.MultiVector(self.map,a)
         emv2 = Epetra.MultiVector(self.map,2)
-        self.failUnless((emv2[:] == 0.0).all())
+        self.assertTrue((emv2[:] == 0.0).all())
         result = emv2.Reciprocal(emv1)
-        self.assertEquals(result,0)
-        self.failUnless((emv2[:] == 1.0/a).all())
+        self.assertEqual(result,0)
+        self.assertTrue((emv2[:] == 1.0/a).all())
 
     def testScale1(self):
         "Test Epetra.MultiVector Scale method in-place"
         a   = array([self.numPyArray1,self.numPyArray2])
         b   = a.copy()
         emv = Epetra.MultiVector(self.map,a)
-        self.failUnless((emv[:] == b).all())
+        self.assertTrue((emv[:] == b).all())
         result = emv.Scale(2.0)
-        self.assertEquals(result,0)
-        self.failUnless((emv[:] == 2.0*b).all())
+        self.assertEqual(result,0)
+        self.assertTrue((emv[:] == 2.0*b).all())
 
     def testScale2(self):
         "Test Epetra.MultiVector Scale method with replace"
         a    = array([self.numPyArray1,self.numPyArray2])
         emv1 = Epetra.MultiVector(self.map,a)
         emv2 = Epetra.MultiVector(self.map,2)
-        self.failUnless((emv2[:] == 0.0).all())
+        self.assertTrue((emv2[:] == 0.0).all())
         result = emv2.Scale(pi,emv1)
-        self.assertEquals(result,0)
-        self.failUnless((emv2[:] == pi*a).all())
+        self.assertEqual(result,0)
+        self.assertTrue((emv2[:] == pi*a).all())
 
     def testUpdate1(self):
         "Test Epetra.MultiVector Update method with one MultiVector"
         emv1 = Epetra.MultiVector(self.map,self.numPyArray1)
         emv2 = Epetra.MultiVector(self.map,self.numPyArray2)
         result = emv2.Update(2.0,emv1,3.0)
-        self.assertEquals(result,0)
-        self.failUnless((emv2[:] == 2.0*self.numPyArray1 + 3.0*self.numPyArray2).all())
+        self.assertEqual(result,0)
+        self.assertTrue((emv2[:] == 2.0*self.numPyArray1 + 3.0*self.numPyArray2).all())
 
     def testUpdate2(self):
         "Test Epetra.MultiVector Update method with two MultiVectors"
@@ -683,8 +683,8 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
         emv1 = Epetra.MultiVector(self.map,self.numPyArray1)
         emv2 = Epetra.MultiVector(self.map,self.numPyArray2)
         result = emv0.Update(2.0,emv1,3.0,emv2,pi)
-        self.assertEquals(result,0)
-        self.failUnless((emv0[:] == 2.0*self.numPyArray1 + 3.0*self.numPyArray2).all())
+        self.assertEqual(result,0)
+        self.assertTrue((emv0[:] == 2.0*self.numPyArray1 + 3.0*self.numPyArray2).all())
 
     def testNorm1(self):
         "Test Epetra.MultiVector Norm1 method"
@@ -693,8 +693,8 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
         result = [sum(abs(self.numPyArray1)) * self.comm.NumProc(),
                   sum(abs(self.numPyArray2)) * self.comm.NumProc()]
         norm1  = emv.Norm1()
-        self.assertEquals(len(norm1), 2)
-        self.failUnless((norm1 == result).all())
+        self.assertEqual(len(norm1), 2)
+        self.assertTrue((norm1 == result).all())
 
     def testNorm2(self):
         "Test Epetra.MultiVector Norm2 method"
@@ -703,8 +703,8 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
         result = [sqrt(sum(self.numPyArray1*self.numPyArray1) * self.comm.NumProc()),
                   sqrt(sum(self.numPyArray2*self.numPyArray2) * self.comm.NumProc())]
         norm2  = emv.Norm2()
-        self.assertEquals(len(norm2), 2)
-        self.failUnless((norm2 == result).all())
+        self.assertEqual(len(norm2), 2)
+        self.assertTrue((norm2 == result).all())
 
     def testNormInf(self):
         "Test Epetra.MultiVector NormInf method"
@@ -712,8 +712,8 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
         emv     = Epetra.MultiVector(self.map,a)
         result  = [max(abs(self.numPyArray1)),max(abs(self.numPyArray2))]
         normInf = emv.NormInf()
-        self.assertEquals(len(normInf), 2)
-        self.failUnless((normInf == result).all())
+        self.assertEqual(len(normInf), 2)
+        self.assertTrue((normInf == result).all())
 
     def testNormWeighted(self):
         "Test Epetra.MultiVector NormWeighted method"
@@ -723,7 +723,7 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
         weights = Epetra.MultiVector(self.map,wts)
         result  = sqrt(sum((a/wts)**2,1)/self.length)
         norm    = emv.NormWeighted(weights)
-        self.assertEquals(len(norm), 2)
+        self.assertEqual(len(norm), 2)
         for i in range(len(norm)):
             self.assertAlmostEqual(norm[i], result[i])
 
@@ -733,8 +733,8 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
         emv      = Epetra.MultiVector(self.map,a)
         result   = [min(self.numPyArray1),min(self.numPyArray2)]
         minValue = emv.MinValue()
-        self.assertEquals(len(minValue), 2)
-        self.failUnless((minValue == result).all())
+        self.assertEqual(len(minValue), 2)
+        self.assertTrue((minValue == result).all())
 
     def testMaxValue(self):
         "Test Epetra.MultiVector MaxValue method"
@@ -742,8 +742,8 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
         emv      = Epetra.MultiVector(self.map,a)
         result   = [max(self.numPyArray1),max(self.numPyArray2)]
         maxValue = emv.MaxValue()
-        self.assertEquals(len(maxValue), 2)
-        self.failUnless((maxValue == result).all())
+        self.assertEqual(len(maxValue), 2)
+        self.assertTrue((maxValue == result).all())
 
     def testMeanValue(self):
         "Test Epetra.MultiVector MeanValue method"
@@ -752,8 +752,8 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
         result    = [sum(self.numPyArray1)/self.length,
                      sum(self.numPyArray2)/self.length]
         meanValue = emv.MeanValue()
-        self.assertEquals(len(meanValue), 2)
-        self.failUnless((meanValue == result).all())
+        self.assertEqual(len(meanValue), 2)
+        self.assertTrue((meanValue == result).all())
 
     def testMultiply1(self):
         "Test Epetra.MultiVector Multiply method"
@@ -766,7 +766,7 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
         emv1.Random()
         emv2.Random()
         result = emv0.Multiply(1.0,emv1,emv2,2.0)
-        self.assertEquals(result,0)
+        self.assertEqual(result,0)
 
 # The following unit test has been commented out because Epetra does not
 # currently support this form (transposed) of multivector multiplication
@@ -781,11 +781,11 @@ class EpetraMultiVectorTestCase(unittest.TestCase):
 #         emv1.Random()
 #         emv2.Random()
 #         result = emv0.Multiply('T','N',3.0,emv1,emv2,4.0)
-#         self.assertEquals(result,0)
+#         self.assertEqual(result,0)
 #         result = emv0.Multiply('N','T',5.0,emv1,emv2,5.0)
-#         self.assertEquals(result,0)
+#         self.assertEqual(result,0)
 #         result = emv0.Multiply('T','T',7.0,emv1,emv2,6.0)
-#         self.assertEquals(result,0)
+#         self.assertEqual(result,0)
 
     def testSetArray(self):
         "Test Epetra.MultiVector __setattr__ method for 'array'"

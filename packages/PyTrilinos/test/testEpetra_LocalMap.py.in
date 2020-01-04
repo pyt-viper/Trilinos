@@ -271,7 +271,7 @@ class EpetraLocalMapTestCase(unittest.TestCase):
         if self.myPID == 0: lines += 7
         s = str(self.map)
         s = s.splitlines()
-        self.assertEquals(len(s), lines)
+        self.assertEqual(len(s), lines)
 
     def testPrint(self):
         "Test Epetra.LocalMap Print method"
@@ -285,7 +285,7 @@ class EpetraLocalMapTestCase(unittest.TestCase):
         s = open(filename, "r").readlines()
         lines = 7 + self.numElem
         if myPID == 0: lines += 7
-        self.assertEquals(len(s), lines)
+        self.assertEqual(len(s), lines)
 
     def testComm(self):
         "Test Epetra.LocalMap Comm method"

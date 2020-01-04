@@ -89,7 +89,7 @@ class TriUtilsTestCase(unittest.TestCase):
         "Test TriUtils TriUtils_Version function"
         front   = "Triutils in Trilinos "
         version = TriUtils.TriUtils_Version()
-        self.assertEquals(version[:len(front)], front)
+        self.assertEqual(version[:len(front)], front)
 
     def testGetRHS(self):
         "Test TriUtils.CrsMatrixGallery GetRHS method"

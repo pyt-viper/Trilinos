@@ -81,66 +81,66 @@ class ParameterVectorTestCase(unittest.TestCase):
 
     def testAddParameterNoValue(self):
         "Test LOCA.ParameterVector addParameter method with no value"
-        self.assertEquals(self.pv.getValue("Zero"), 0.0)
+        self.assertEqual(self.pv.getValue("Zero"), 0.0)
 
     def testAddParameterWithValue(self):
         "Test LOCA.ParameterVector addParameter method with given value"
-        self.assertEquals(self.pv.getValue("One"), 1.0)
+        self.assertEqual(self.pv.getValue("One"), 1.0)
 
     def testInit(self):
         "Test LOCA.ParameterVector init method"
         result = self.pv.init(2.0)
-        self.assert_(result)
-        self.assertEquals(self.pv.getValue("Zero"), 2.0)
-        self.assertEquals(self.pv.getValue("One" ), 2.0)
-        self.assertEquals(self.pv.getValue("Pi"  ), 2.0)
+        self.assertTrue(result)
+        self.assertEqual(self.pv.getValue("Zero"), 2.0)
+        self.assertEqual(self.pv.getValue("One" ), 2.0)
+        self.assertEqual(self.pv.getValue("Pi"  ), 2.0)
 
     def testScale(self):
         "Test LOCA.ParameterVector scale method"
         result = self.pv.scale(2.0)
-        self.assert_(result)
-        self.assertEquals(self.pv.getValue("Zero"), 0.0 )
-        self.assertEquals(self.pv.getValue("One" ), 2.0 )
-        self.assertEquals(self.pv.getValue("Pi"  ), 6.28)
+        self.assertTrue(result)
+        self.assertEqual(self.pv.getValue("Zero"), 0.0 )
+        self.assertEqual(self.pv.getValue("One" ), 2.0 )
+        self.assertEqual(self.pv.getValue("Pi"  ), 6.28)
 
     def testOperatorEquals(self):
         "Test LOCA.ParameterVector operator= method"
         newPV = self.pv
-        self.assertEquals(newPV.getValue("Zero"), 0.0 )
-        self.assertEquals(newPV.getValue("One" ), 1.0 )
-        self.assertEquals(newPV.getValue("Pi"  ), 3.14)
+        self.assertEqual(newPV.getValue("Zero"), 0.0 )
+        self.assertEqual(newPV.getValue("One" ), 1.0 )
+        self.assertEqual(newPV.getValue("Pi"  ), 3.14)
 
     def testSetGetInt(self):
         "Test LOCA.ParameterVector setValue & getValue methods with integer key"
         self.pv.setValue(2,2.0)
-        self.assertEquals(self.pv.getValue(2), 2.0)
+        self.assertEqual(self.pv.getValue(2), 2.0)
 
     def testSetGetString(self):
         "Test LOCA.ParameterVector setValue & getValue methods with string key"
         self.pv.setValue("Pi",2.0)
-        self.assertEquals(self.pv.getValue("Pi"), 2.0)
+        self.assertEqual(self.pv.getValue("Pi"), 2.0)
 
     def testGetIndex(self):
         "Test LOCA.ParameterVector getIndex method"
         index = self.pv.getIndex("One")
-        self.assertEquals(index, 1)
+        self.assertEqual(index, 1)
 
     def testIsParameter(self):
         "Test LOCA.ParameterVector isParameter method"
-        self.assert_(self.pv.isParameter("Zero"))
-        self.assert_(self.pv.isParameter("One" ))
-        self.assert_(self.pv.isParameter("Pi"  ))
-        self.assert_(not self.pv.isParameter("Two"))
+        self.assertTrue(self.pv.isParameter("Zero"))
+        self.assertTrue(self.pv.isParameter("One" ))
+        self.assertTrue(self.pv.isParameter("Pi"  ))
+        self.assertTrue(not self.pv.isParameter("Two"))
 
     def testGetLabel(self):
         "Test LOCA.ParameterVector getLabel method"
-        self.assertEquals(self.pv.getLabel(0), "Zero")
-        self.assertEquals(self.pv.getLabel(1), "One" )
-        self.assertEquals(self.pv.getLabel(2), "Pi"  )
+        self.assertEqual(self.pv.getLabel(0), "Zero")
+        self.assertEqual(self.pv.getLabel(1), "One" )
+        self.assertEqual(self.pv.getLabel(2), "Pi"  )
 
     def testLength(self):
         "Test LOCA.ParameterVector length method"
-        self.assertEquals(self.pv.length(), 3)
+        self.assertEqual(self.pv.length(), 3)
 
 ################################################################################
 

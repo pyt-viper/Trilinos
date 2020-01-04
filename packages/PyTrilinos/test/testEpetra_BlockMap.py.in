@@ -232,9 +232,9 @@ class EpetraBlockMapTestCase(unittest.TestCase):
             pidList[start:] += 1
             lidList[ start:start+length] = range(length)
         result = self.map3.RemoteIDList(gidList)
-        self.failUnless((result[0] == pidList ).all())
-        self.failUnless((result[1] == lidList ).all())
-        self.failUnless((result[2] == sizeList).all())
+        self.assertTrue((result[0] == pidList ).all())
+        self.assertTrue((result[1] == lidList ).all())
+        self.assertTrue((result[2] == sizeList).all())
 
     def testRemoteIDList2(self):
         "Test Epetra.BlockMap RemoteIDList method for variable element size"
@@ -250,9 +250,9 @@ class EpetraBlockMapTestCase(unittest.TestCase):
             lidList[ start:start+length] = range(length)
             sizeList[start:start+length] = range(5,5+length)
         result = self.map4.RemoteIDList(gidList)
-        self.failUnless((result[0] == pidList ).all())
-        self.failUnless((result[1] == lidList ).all())
-        self.failUnless((result[2] == sizeList).all())
+        self.assertTrue((result[0] == pidList ).all())
+        self.assertTrue((result[1] == lidList ).all())
+        self.assertTrue((result[2] == sizeList).all())
 
     def testLID(self):
         "Test Epetra.BlockMap LID method"
@@ -357,7 +357,7 @@ class EpetraBlockMapTestCase(unittest.TestCase):
     def testMyGlobalElements(self):
         "Test Epetra.BlockMap MyGlobalElements method"
         result = self.map4.MyGlobalElements()
-        self.failUnless((result == self.myGlobalEls).all())
+        self.assertTrue((result == self.myGlobalEls).all())
 
     def testElementSize1(self):
         "Test Epetra.BlockMap ElementSize method for constant element sizes"
@@ -509,10 +509,10 @@ class EpetraBlockMapTestCase(unittest.TestCase):
         result2      = self.map2.FirstPointInElementList()
         result3      = self.map3.FirstPointInElementList()
         result4      = self.map4.FirstPointInElementList()
-        self.failUnless((result1 == firstPoints1).all())
-        self.failUnless((result2 == firstPoints2).all())
-        self.failUnless((result3 == firstPoints3).all())
-        self.failUnless((result4 == firstPoints4).all())
+        self.assertTrue((result1 == firstPoints1).all())
+        self.assertTrue((result2 == firstPoints2).all())
+        self.assertTrue((result3 == firstPoints3).all())
+        self.assertTrue((result4 == firstPoints4).all())
 
     def testElementSizeList(self):
         "Test Epetra.BlockMap ElementSizeList method"
@@ -524,10 +524,10 @@ class EpetraBlockMapTestCase(unittest.TestCase):
         result2 = self.map2.ElementSizeList()
         result3 = self.map3.ElementSizeList()
         result4 = self.map4.ElementSizeList()
-        self.failUnless((result1 == size1).all())
-        self.failUnless((result2 == size2).all())
-        self.failUnless((result3 == size3).all())
-        self.failUnless((result4 == size4).all())
+        self.assertTrue((result1 == size1).all())
+        self.assertTrue((result2 == size2).all())
+        self.assertTrue((result3 == size3).all())
+        self.assertTrue((result4 == size4).all())
 
     def testPointToElementList(self):
         "Test Epetra.BlockMap PointToElementList method"
@@ -536,7 +536,7 @@ class EpetraBlockMapTestCase(unittest.TestCase):
             for offset in range(self.map4.ElementSize(lid)):
                 elementList.append(lid)
         result = self.map4.PointToElementList()
-        self.failUnless((result == elementList).all())
+        self.assertTrue((result == elementList).all())
 
     def testAsMap(self):
         "Test Epetra.BlockMap AsMap method"
@@ -545,7 +545,7 @@ class EpetraBlockMapTestCase(unittest.TestCase):
                          self.comm)
         v = Epetra.Vector(map)
         blockMap = v.Map()
-        self.failUnless(map.SameAs(blockMap.AsMap()))
+        self.assertTrue(map.SameAs(blockMap.AsMap()))
 
     def testAsMapBad(self):
         "Test Epetra.BlockMap AsMap method for map w/element size > 1"
@@ -559,7 +559,7 @@ class EpetraBlockMapTestCase(unittest.TestCase):
         if self.myPID == 0: lines += 7
         s = str(self.map1)
         s = s.splitlines()
-        self.assertEquals(len(s), lines)
+        self.assertEqual(len(s), lines)
 
     def testPrint(self):
         "Test Epetra.BlockMap Print method"
@@ -573,7 +573,7 @@ class EpetraBlockMapTestCase(unittest.TestCase):
         s = open(filename, "r").readlines()
         lines = 7 + self.numMyEl
         if myPID == 0: lines += 7
-        self.assertEquals(len(s), lines)
+        self.assertEqual(len(s), lines)
 
     def testComm(self):
         "Test Epetra.BlockMap Comm method"

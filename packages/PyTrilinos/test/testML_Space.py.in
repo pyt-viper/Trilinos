@@ -262,28 +262,28 @@ class MLSpaceTestCase(unittest.TestCase):
         n = self. comm.NumProc()
         space1 = ML.Space(n*10)
         space2 = ML.Space(space1)
-        self.failUnless(space1 == space2)
+        self.assertTrue(space1 == space2)
 
     def testEqualFalse(self):
         "Test ML.Space == operator, for unequal spaces"
         n = self. comm.NumProc()
         space1 = ML.Space(n*10)
         space2 = ML.Space(n*12)
-        self.failIf(space1 == space2)
+        self.assertFalse(space1 == space2)
 
     def testNotEqualFalse(self):
         "Test ML.Space != operator, for equal spaces"
         n = self. comm.NumProc()
         space1 = ML.Space(n*10)
         space2 = ML.Space(space1)
-        self.failIf(space1 != space2)
+        self.assertFalse(space1 != space2)
 
     def testNotEqualTrue(self):
         "Test ML.Space != operator, for unequal spaces"
         n = self. comm.NumProc()
         space1 = ML.Space(n*10)
         space2 = ML.Space(n*12)
-        self.failUnless(space1 != space2)
+        self.assertTrue(space1 != space2)
 
     def testGetGlobalID(self):
         "Test ML.Space __call__ method to get global ID"
@@ -300,7 +300,7 @@ class MLSpaceTestCase(unittest.TestCase):
         numGlobalEl = numMyEl * self.comm.NumProc()
         myGlobalEl = range(self.comm.MyPID(), numGlobalEl, self.comm.NumProc())
         space = ML.Space(numGlobalEl, myGlobalEl)
-        self.failUnless((space.GetMyGlobalElements() == myGlobalEl).all())
+        self.assertTrue((space.GetMyGlobalElements() == myGlobalEl).all())
 
 ##########################################################################
 

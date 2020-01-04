@@ -90,11 +90,11 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
     def testGetRank(self):
         "Test Teuchos.DefaultComm getRank method"
         pid = self.comm.getRank()
-        self.assert_(pid < self.comm.getSize())
+        self.assertTrue(pid < self.comm.getSize())
         if self.commType == "Serial":
             self.assertEqual(pid, 0)
         else:
-            self.assert_(pid >= 0)
+            self.assertTrue(pid >= 0)
 
     def testGetSize(self):
         "Test Teuchos.DefaultComm getSize method"
@@ -102,7 +102,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         if self.commType == "Serial":
             self.assertEqual(n, 1)
         else:
-            self.assert_(n > 0)
+            self.assertTrue(n > 0)
 
     def testStr(self):
         "Test Teuchos.DefaultComm __str__ method"
@@ -128,7 +128,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
             myVals = array([-1,-1,-1,-1,-1,-1],'i')
         self.comm.broadcast(0, myVals)
         for i in range(len(rootVals)):
-            self.assertEquals(myVals[i], rootVals[i])
+            self.assertEqual(myVals[i], rootVals[i])
 
     def testBroadcastInt2D(self):
         "Test Teuchos.DefaultComm broadcast method for 2D int array"
@@ -140,7 +140,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         self.comm.broadcast(0, myVals)
         for i in range(2):
             for j in range(2):
-                self.assertEquals(myVals[i,j], rootVals[i,j])
+                self.assertEqual(myVals[i,j], rootVals[i,j])
 
     def testBroadcastLong(self):
         "Test Teuchos.DefaultComm broadcast method for longs"
@@ -151,7 +151,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
             myVals = array([-1,-1,-1,-1,-1,-1])
         self.comm.broadcast(0, myVals)
         for i in range(len(rootVals)):
-            self.assertEquals(myVals[i], rootVals[i])
+            self.assertEqual(myVals[i], rootVals[i])
 
     def testBroadcastLong2D(self):
         "Test Teuchos.DefaultComm broadcast method for 2D long array"
@@ -163,7 +163,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         self.comm.broadcast(0, myVals)
         for i in range(2):
             for j in range(2):
-                self.assertEquals(myVals[i,j], rootVals[i,j])
+                self.assertEqual(myVals[i,j], rootVals[i,j])
 
     def testBroadcastFloat(self):
         "Test Teuchos.DefaultComm broadcast method for floats"
@@ -174,7 +174,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
             myVals = array([-1,-1,-1,-1,-1,-1],dtype='f')
         self.comm.broadcast(0, myVals)
         for i in range(len(rootVals)):
-            self.assertEquals(myVals[i], rootVals[i])
+            self.assertEqual(myVals[i], rootVals[i])
 
     def testBroadcastFloat2D(self):
         "Test Teuchos.DefaultComm broadcast method for 2D float array"
@@ -186,7 +186,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         self.comm.broadcast(0, myVals)
         for i in range(2):
             for j in range(2):
-                self.assertEquals(myVals[i,j], rootVals[i,j])
+                self.assertEqual(myVals[i,j], rootVals[i,j])
 
     def testBroadcastDouble(self):
         "Test Teuchos.DefaultComm broadcast method for doubles"
@@ -197,7 +197,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
             myVals = array([-1,-1,-1,-1,-1,-1],dtype='d')
         self.comm.broadcast(0, myVals)
         for i in range(len(rootVals)):
-            self.assertEquals(myVals[i], rootVals[i])
+            self.assertEqual(myVals[i], rootVals[i])
 
     def testBroadcastDouble2D(self):
         "Test Teuchos.DefaultComm broadcast method for 2D double array"
@@ -209,7 +209,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         self.comm.broadcast(0, myVals)
         for i in range(2):
             for j in range(2):
-                self.assertEquals(myVals[i,j], rootVals[i,j])
+                self.assertEqual(myVals[i,j], rootVals[i,j])
 
     def testGatherAllInt(self):
         "Test Teuchos.DefaultComm gatherAll method for ints"
@@ -220,7 +220,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         allVals    = self.comm.gatherAll(myVals)
         allVals.shape = (length,)
         for i in range(len(globalVals)):
-            self.assertEquals(allVals[i], globalVals[i])
+            self.assertEqual(allVals[i], globalVals[i])
 
     def testGatherAllInt2D(self):
         "Test Teuchos.DefaultComm gatherAll method for 2D int array"
@@ -234,7 +234,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         for p in range(numProc):
             for i in range(2):
                 for j in range(2):
-                    self.assertEquals(allVals[p,i,j], globalVals[p,i,j])
+                    self.assertEqual(allVals[p,i,j], globalVals[p,i,j])
 
     def testGatherAllIntNoncontiguous(self):
         "Test Teuchos.DefaultComm gatherAll method with noncontiguous int array"
@@ -243,9 +243,9 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         myArray   = baseArray[1:3,1:4] # Noncontiguous
         allArray  = self.comm.gatherAll(myArray)
         numProc   = self.comm.getSize()
-        self.assertEquals(allArray.shape, (numProc,2,3))
+        self.assertEqual(allArray.shape, (numProc,2,3))
         for p in range(numProc):
-            self.failUnless((allArray[p,:,:] == myArray).all())
+            self.assertTrue((allArray[p,:,:] == myArray).all())
 
     def testGatherAllLong(self):
         "Test Teuchos.DefaultComm gatherAll method for longs"
@@ -256,7 +256,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         allVals    = self.comm.gatherAll(myVals)
         allVals.shape = (length,)
         for i in range(len(globalVals)):
-            self.assertEquals(allVals[i], globalVals[i])
+            self.assertEqual(allVals[i], globalVals[i])
 
     def testGatherAllLong2D(self):
         "Test Teuchos.DefaultComm gatherAll method for 2D long array"
@@ -270,7 +270,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         for p in range(numProc):
             for i in range(2):
                 for j in range(2):
-                    self.assertEquals(allVals[p,i,j], globalVals[p,i,j])
+                    self.assertEqual(allVals[p,i,j], globalVals[p,i,j])
 
     def testGatherAllLongNoncontiguous(self):
         "Test Teuchos.DefaultComm gatherAll method with noncontiguous long array"
@@ -279,9 +279,9 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         myArray   = baseArray[1:3,1:4] # Noncontiguous
         allArray  = self.comm.gatherAll(myArray)
         numProc   = self.comm.getSize()
-        self.assertEquals(allArray.shape, (numProc,2,3))
+        self.assertEqual(allArray.shape, (numProc,2,3))
         for p in range(numProc):
-            self.failUnless((allArray[p,:,:] == myArray).all())
+            self.assertTrue((allArray[p,:,:] == myArray).all())
 
     def testGatherAllFloat(self):
         "Test Teuchos.DefaultComm gatherAll method for floats"
@@ -292,7 +292,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         allVals    = self.comm.gatherAll(myVals)
         allVals.shape = (length,)
         for i in range(len(globalVals)):
-            self.assertEquals(allVals[i], globalVals[i])
+            self.assertEqual(allVals[i], globalVals[i])
 
     def testGatherAllFloat2D(self):
         "Test Teuchos.DefaultComm gatherAll method for 2D float array"
@@ -306,7 +306,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         for p in range(len(globalVals)):
             for i in range(2):
                 for j in range(2):
-                    self.assertEquals(allVals[p,i,j], globalVals[p,i,j])
+                    self.assertEqual(allVals[p,i,j], globalVals[p,i,j])
 
     def testGatherAllFloatNoncontiguous(self):
         "Test Teuchos.DefaultComm gatherAll method with noncontiguous float array"
@@ -315,9 +315,9 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         myArray   = baseArray[1:4,1:3] # Noncontiguous
         allArray  = self.comm.gatherAll(myArray)
         numProc   = self.comm.getSize()
-        self.assertEquals(allArray.shape, (numProc,3,2))
+        self.assertEqual(allArray.shape, (numProc,3,2))
         for i in range(numProc):
-            self.failUnless((allArray[i,:,:] == myArray).all())
+            self.assertTrue((allArray[i,:,:] == myArray).all())
 
     def testGatherAllDouble(self):
         "Test Teuchos.DefaultComm gatherAll method for doubles"
@@ -328,7 +328,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         allVals    = self.comm.gatherAll(myVals)
         allVals.shape = (length,)
         for i in range(len(globalVals)):
-            self.assertEquals(allVals[i], globalVals[i])
+            self.assertEqual(allVals[i], globalVals[i])
 
     def testGatherAllDouble2D(self):
         "Test Teuchos.DefaultComm gatherAll method for 2D double array"
@@ -342,7 +342,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         for p in range(len(globalVals)):
             for i in range(2):
                 for j in range(2):
-                    self.assertEquals(allVals[p,i,j], globalVals[p,i,j])
+                    self.assertEqual(allVals[p,i,j], globalVals[p,i,j])
 
     def testGatherAllDoubleNoncontiguous(self):
         "Test Teuchos.DefaultComm gatherAll method with noncontiguous double array"
@@ -351,9 +351,9 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         myArray   = baseArray[1:4,1:3] # Noncontiguous
         allArray  = self.comm.gatherAll(myArray)
         numProc   = self.comm.getSize()
-        self.assertEquals(allArray.shape, (numProc,3,2))
+        self.assertEqual(allArray.shape, (numProc,3,2))
         for i in range(numProc):
-            self.failUnless((allArray[i,:,:] == myArray).all())
+            self.assertTrue((allArray[i,:,:] == myArray).all())
 
     def testSumAllInt(self):
         "Test Teuchos.DefaultComm reduceAll (SUM) method for ints"
@@ -361,7 +361,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         partialSums = arange(3,dtype='i')
         globalSums  = self.comm.reduceAll(Teuchos.REDUCE_SUM, partialSums)
         for i in range(len(partialSums)):
-            self.assertEquals(globalSums[i], numProc*partialSums[i])
+            self.assertEqual(globalSums[i], numProc*partialSums[i])
 
     def testSumAllInt2D(self):
         "Test Teuchos.DefaultComm reduceAll (SUM) method for 2D int array"
@@ -371,7 +371,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         globalSums  = self.comm.reduceAll(Teuchos.REDUCE_SUM, partialSums)
         for i in range(3):
             for j in range(4):
-                self.assertEquals(globalSums[i,j], numProc*partialSums[i,j])
+                self.assertEqual(globalSums[i,j], numProc*partialSums[i,j])
 
     def testSumAllIntNoncontiguous(self):
         "Test Teuchos.DefaultComm reduceAll (SUM) method with noncontiguous int array"
@@ -382,7 +382,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         globalSums  = self.comm.reduceAll(Teuchos.REDUCE_SUM, partialSums)
         for i in range(1):
             for j in range(3):
-                self.assertEquals(globalSums[i,j], numProc*partialSums[i,j])
+                self.assertEqual(globalSums[i,j], numProc*partialSums[i,j])
 
     def testSumAllLong(self):
         "Test Teuchos.DefaultComm reduceAll (SUM) method for longs"
@@ -390,7 +390,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         partialSums = arange(3)
         globalSums  = self.comm.reduceAll(Teuchos.REDUCE_SUM, partialSums)
         for i in range(len(partialSums)):
-            self.assertEquals(globalSums[i], numProc*partialSums[i])
+            self.assertEqual(globalSums[i], numProc*partialSums[i])
 
     def testSumAllLong2D(self):
         "Test Teuchos.DefaultComm reduceAll (SUM) method for 2D long array"
@@ -400,7 +400,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         globalSums  = self.comm.reduceAll(Teuchos.REDUCE_SUM, partialSums)
         for i in range(3):
             for j in range(4):
-                self.assertEquals(globalSums[i,j], numProc*partialSums[i,j])
+                self.assertEqual(globalSums[i,j], numProc*partialSums[i,j])
 
     def testSumAllLongNoncontiguous(self):
         "Test Teuchos.DefaultComm reduceAll (SUM) method with noncontiguous long array"
@@ -411,7 +411,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         globalSums  = self.comm.reduceAll(Teuchos.REDUCE_SUM, partialSums)
         for i in range(1):
             for j in range(3):
-                self.assertEquals(globalSums[i,j], numProc*partialSums[i,j])
+                self.assertEqual(globalSums[i,j], numProc*partialSums[i,j])
 
     def testSumAllFloat(self):
         "Test Teuchos.DefaultComm reduceAll (SUM) method for floats"
@@ -419,7 +419,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         partialSums = arange(4,dtype='f')
         globalSums  = self.comm.reduceAll(Teuchos.REDUCE_SUM, partialSums)
         for i in range(len(partialSums)):
-            self.assertEquals(globalSums[i], numProc*partialSums[i])
+            self.assertEqual(globalSums[i], numProc*partialSums[i])
 
     def testSumAllFloat2D(self):
         "Test Teuchos.DefaultComm reduceAll (SUM) method for 2D float array"
@@ -429,7 +429,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         globalSums  = self.comm.reduceAll(Teuchos.REDUCE_SUM, partialSums)
         for i in range(5):
             for j in range(3):
-                self.assertEquals(globalSums[i,j], numProc*partialSums[i,j])
+                self.assertEqual(globalSums[i,j], numProc*partialSums[i,j])
 
     def testSumAllFloatNoncontiguous(self):
         "Test Teuchos.DefaultComm reduceAll (SUM) method with noncontiguous float array"
@@ -440,7 +440,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         globalSums  = self.comm.reduceAll(Teuchos.REDUCE_SUM, partialSums)
         for i in range(3):
             for j in range(2):
-                self.assertEquals(globalSums[i,j], numProc*partialSums[i,j])
+                self.assertEqual(globalSums[i,j], numProc*partialSums[i,j])
 
     def testSumAllDouble(self):
         "Test Teuchos.DefaultComm reduceAll (SUM) method for doubles"
@@ -448,7 +448,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         partialSums = arange(4,dtype='d')
         globalSums  = self.comm.reduceAll(Teuchos.REDUCE_SUM, partialSums)
         for i in range(len(partialSums)):
-            self.assertEquals(globalSums[i], numProc*partialSums[i])
+            self.assertEqual(globalSums[i], numProc*partialSums[i])
 
     def testSumAllDouble2D(self):
         "Test Teuchos.DefaultComm reduceAll (SUM) method for 2D double array"
@@ -458,7 +458,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         globalSums  = self.comm.reduceAll(Teuchos.REDUCE_SUM, partialSums)
         for i in range(5):
             for j in range(3):
-                self.assertEquals(globalSums[i,j], numProc*partialSums[i,j])
+                self.assertEqual(globalSums[i,j], numProc*partialSums[i,j])
 
     def testSumAllDoubleNoncontiguous(self):
         "Test Teuchos.DefaultComm reduceAll (SUM) method with noncontiguous double array"
@@ -469,7 +469,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         globalSums  = self.comm.reduceAll(Teuchos.REDUCE_SUM, partialSums)
         for i in range(3):
             for j in range(2):
-                self.assertEquals(globalSums[i,j], numProc*partialSums[i,j])
+                self.assertEqual(globalSums[i,j], numProc*partialSums[i,j])
 
     def testMaxAllInt(self):
         "Test Teuchos.DefaultComm reduceAll (MAX) method for ints"
@@ -478,7 +478,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         partialMaxs = array(baseArray) * (self.comm.getRank()+1)
         globalMaxs  = self.comm.reduceAll(Teuchos.REDUCE_MAX, partialMaxs)
         for i in range(len(baseArray)):
-            self.assertEquals(globalMaxs[i], numProc*baseArray[i])
+            self.assertEqual(globalMaxs[i], numProc*baseArray[i])
 
     def testMaxAllInt2D(self):
         "Test Teuchos.DefaultComm reduceAll (MAX) method for 2D int array"
@@ -489,7 +489,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         globalMaxs  = self.comm.reduceAll(Teuchos.REDUCE_MAX, partialMaxs)
         for i in range(3):
             for j in range(3):
-                self.assertEquals(globalMaxs[i,j], numProc*baseArray[i,j])
+                self.assertEqual(globalMaxs[i,j], numProc*baseArray[i,j])
 
     def testMaxAllIntNoncontiguous(self):
         "Test Teuchos.DefaultComm reduceAll (MAX) method with noncontiguous int array"
@@ -501,7 +501,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         globalMaxs  = self.comm.reduceAll(Teuchos.REDUCE_MAX, partialMaxs)
         for i in range(3):
             for j in range(3):
-                self.assertEquals(globalMaxs[i,j], numProc*baseMaxs[i,j])
+                self.assertEqual(globalMaxs[i,j], numProc*baseMaxs[i,j])
 
     def testMaxAllLong(self):
         "Test Teuchos.DefaultComm reduceAll (MAX) method for longs"
@@ -510,7 +510,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         partialMaxs = array(baseArray) * (self.comm.getRank()+1)
         globalMaxs  = self.comm.reduceAll(Teuchos.REDUCE_MAX, partialMaxs)
         for i in range(len(baseArray)):
-            self.assertEquals(globalMaxs[i], numProc*baseArray[i])
+            self.assertEqual(globalMaxs[i], numProc*baseArray[i])
 
     def testMaxAllLong2D(self):
         "Test Teuchos.DefaultComm reduceAll (MAX) method for 2D long array"
@@ -521,7 +521,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         globalMaxs  = self.comm.reduceAll(Teuchos.REDUCE_MAX, partialMaxs)
         for i in range(3):
             for j in range(3):
-                self.assertEquals(globalMaxs[i,j], numProc*baseArray[i,j])
+                self.assertEqual(globalMaxs[i,j], numProc*baseArray[i,j])
 
     def testMaxAllLongNoncontiguous(self):
         "Test Teuchos.DefaultComm reduceAll (MAX) method with noncontiguous long array"
@@ -533,7 +533,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         globalMaxs  = self.comm.reduceAll(Teuchos.REDUCE_MAX, partialMaxs)
         for i in range(3):
             for j in range(3):
-                self.assertEquals(globalMaxs[i,j], numProc*baseMaxs[i,j])
+                self.assertEqual(globalMaxs[i,j], numProc*baseMaxs[i,j])
 
     def testMaxAllFloat(self):
         "Test Teuchos.DefaultComm reduceAll (MAX) method for floats"
@@ -542,7 +542,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         partialMaxs = array(baseArray) * (self.comm.getRank()+1)
         globalMaxs  = self.comm.reduceAll(Teuchos.REDUCE_MAX, partialMaxs)
         for i in range(len(baseArray)):
-            self.assertEquals(globalMaxs[i], numProc*baseArray[i])
+            self.assertEqual(globalMaxs[i], numProc*baseArray[i])
 
     def testMaxAllFloat2D(self):
         "Test Teuchos.DefaultComm reduceAll (MAX) method for 2D float array"
@@ -553,7 +553,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         globalMaxs  = self.comm.reduceAll(Teuchos.REDUCE_MAX, partialMaxs)
         for i in range(4):
             for j in range(4):
-                self.assertEquals(globalMaxs[i,j], numProc*baseArray[i,j])
+                self.assertEqual(globalMaxs[i,j], numProc*baseArray[i,j])
 
     def testMaxAllFloatNoncontiguous(self):
         "Test Teuchos.DefaultComm reduceAll (MAX) method with noncontiguous float array"
@@ -565,7 +565,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         globalMaxs  = self.comm.reduceAll(Teuchos.REDUCE_MAX, partialMaxs)
         for i in range(2):
             for j in range(3):
-                self.assertEquals(globalMaxs[i,j], numProc*baseMaxs[i,j])
+                self.assertEqual(globalMaxs[i,j], numProc*baseMaxs[i,j])
 
     def testMaxAllDouble(self):
         "Test Teuchos.DefaultComm reduceAll (MAX) method for doubles"
@@ -574,7 +574,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         partialMaxs = array(baseArray) * (self.comm.getRank()+1)
         globalMaxs  = self.comm.reduceAll(Teuchos.REDUCE_MAX, partialMaxs)
         for i in range(len(baseArray)):
-            self.assertEquals(globalMaxs[i], numProc*baseArray[i])
+            self.assertEqual(globalMaxs[i], numProc*baseArray[i])
 
     def testMaxAllDouble2D(self):
         "Test Teuchos.DefaultComm reduceAll (MAX) method for 2D double array"
@@ -585,7 +585,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         globalMaxs  = self.comm.reduceAll(Teuchos.REDUCE_MAX, partialMaxs)
         for i in range(4):
             for j in range(4):
-                self.assertEquals(globalMaxs[i,j], numProc*baseArray[i,j])
+                self.assertEqual(globalMaxs[i,j], numProc*baseArray[i,j])
 
     def testMaxAllDoubleNoncontiguous(self):
         "Test Teuchos.DefaultComm reduceAll (MAX) method with noncontiguous double array"
@@ -597,7 +597,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         globalMaxs  = self.comm.reduceAll(Teuchos.REDUCE_MAX, partialMaxs)
         for i in range(2):
             for j in range(3):
-                self.assertEquals(globalMaxs[i,j], numProc*baseMaxs[i,j])
+                self.assertEqual(globalMaxs[i,j], numProc*baseMaxs[i,j])
 
     def testMinAllInt(self):
         "Test Teuchos.DefaultComm reduceAll (MIN) method for ints"
@@ -605,7 +605,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         partialMins = array(baseArray) * (self.comm.getRank()+1)
         globalMins  = self.comm.reduceAll(Teuchos.REDUCE_MIN, partialMins)
         for i in range(len(baseArray)):
-            self.assertEquals(globalMins[i], baseArray[i])
+            self.assertEqual(globalMins[i], baseArray[i])
 
     def testMinAllInt2D(self):
         "Test Teuchos.DefaultComm reduceAll (MIN) method for 2D int array"
@@ -615,7 +615,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         globalMins  = self.comm.reduceAll(Teuchos.REDUCE_MIN, partialMins)
         for i in range(3):
             for j in range(6):
-                self.assertEquals(globalMins[i,j], baseArray[i,j])
+                self.assertEqual(globalMins[i,j], baseArray[i,j])
 
     def testMinAllIntNoncontiguous(self):
         "Test Teuchos.DefaultComm reduceAll (MIN) method with noncontiguous int array"
@@ -626,7 +626,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         globalMins  = self.comm.reduceAll(Teuchos.REDUCE_MIN, partialMins)
         for i in range(2):
             for j in range(4):
-                self.assertEquals(globalMins[i,j], baseArray[i,j])
+                self.assertEqual(globalMins[i,j], baseArray[i,j])
 
     def testMinAllLong(self):
         "Test Teuchos.DefaultComm reduceAll (MIN) method for longs"
@@ -634,7 +634,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         partialMins = array(baseArray) * (self.comm.getRank()+1)
         globalMins  = self.comm.reduceAll(Teuchos.REDUCE_MIN, partialMins)
         for i in range(len(baseArray)):
-            self.assertEquals(globalMins[i], baseArray[i])
+            self.assertEqual(globalMins[i], baseArray[i])
 
     def testMinAllLong2D(self):
         "Test Teuchos.DefaultComm reduceAll (MIN) method for 2D long array"
@@ -644,7 +644,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         globalMins  = self.comm.reduceAll(Teuchos.REDUCE_MIN, partialMins)
         for i in range(3):
             for j in range(6):
-                self.assertEquals(globalMins[i,j], baseArray[i,j])
+                self.assertEqual(globalMins[i,j], baseArray[i,j])
 
     def testMinAllLongNoncontiguous(self):
         "Test Teuchos.DefaultComm reduceAll (MIN) method with noncontiguous long array"
@@ -655,7 +655,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         globalMins  = self.comm.reduceAll(Teuchos.REDUCE_MIN, partialMins)
         for i in range(2):
             for j in range(4):
-                self.assertEquals(globalMins[i,j], baseArray[i,j])
+                self.assertEqual(globalMins[i,j], baseArray[i,j])
 
     def testMinAllFloat(self):
         "Test Teuchos.DefaultComm reduceAll (MIN) method for floats"
@@ -663,7 +663,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         partialMins = array(baseArray) * (self.comm.getRank()+1)
         globalMins  = self.comm.reduceAll(Teuchos.REDUCE_MIN, partialMins)
         for i in range(len(baseArray)):
-            self.assertEquals(globalMins[i], baseArray[i])
+            self.assertEqual(globalMins[i], baseArray[i])
 
     def testMinAllFloat2D(self):
         "Test Teuchos.DefaultComm reduceAll (MIN) method for 2D float array"
@@ -673,7 +673,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         globalMins  = self.comm.reduceAll(Teuchos.REDUCE_MIN, partialMins)
         for i in range(6):
             for j in range(5):
-                self.assertEquals(globalMins[i,j], baseArray[i,j])
+                self.assertEqual(globalMins[i,j], baseArray[i,j])
 
     def testMinAllFloatNoncontiguous(self):
         "Test Teuchos.DefaultComm reduceAll (MIN) method with noncontiguous float array"
@@ -684,7 +684,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         globalMins  = self.comm.reduceAll(Teuchos.REDUCE_MIN, partialMins)
         for i in range(3):
             for j in range(3):
-                self.assertEquals(globalMins[i,j], baseArray[i,j])
+                self.assertEqual(globalMins[i,j], baseArray[i,j])
 
     def testMinAllDouble(self):
         "Test Teuchos.DefaultComm reduceAll (MIN) method for doubles"
@@ -692,7 +692,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         partialMins = array(baseArray) * (self.comm.getRank()+1)
         globalMins  = self.comm.reduceAll(Teuchos.REDUCE_MIN, partialMins)
         for i in range(len(baseArray)):
-            self.assertEquals(globalMins[i], baseArray[i])
+            self.assertEqual(globalMins[i], baseArray[i])
 
     def testMinAllDouble2D(self):
         "Test Teuchos.DefaultComm reduceAll (MIN) method for 2D double array"
@@ -702,7 +702,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         globalMins  = self.comm.reduceAll(Teuchos.REDUCE_MIN, partialMins)
         for i in range(6):
             for j in range(5):
-                self.assertEquals(globalMins[i,j], baseArray[i,j])
+                self.assertEqual(globalMins[i,j], baseArray[i,j])
 
     def testMinAllDoubleNoncontiguous(self):
         "Test Teuchos.DefaultComm reduceAll (MIN) method with noncontiguous double array"
@@ -713,7 +713,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         globalMins  = self.comm.reduceAll(Teuchos.REDUCE_MIN, partialMins)
         for i in range(3):
             for j in range(3):
-                self.assertEquals(globalMins[i,j], baseArray[i,j])
+                self.assertEqual(globalMins[i,j], baseArray[i,j])
 
     def testScanSumInt(self):
         "Test Teuchos.DefaultComm scan (SUM) method for ints"
@@ -721,7 +721,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         myVals   = arange(3,dtype='i')
         scanSums = self.comm.scan(Teuchos.REDUCE_SUM, myVals)
         for i in range(len(myVals)):
-            self.assertEquals(scanSums[i], myPIN*myVals[i])
+            self.assertEqual(scanSums[i], myPIN*myVals[i])
 
     def testScanSumInt2D(self):
         "Test Teuchos.DefaultComm scan (SUM) method for 2D int array"
@@ -731,7 +731,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         scanSums = self.comm.scan(Teuchos.REDUCE_SUM, myVals)
         for i in range(3):
             for j in range(4):
-                self.assertEquals(scanSums[i,j], myPIN*myVals[i,j])
+                self.assertEqual(scanSums[i,j], myPIN*myVals[i,j])
 
     def testScanSumIntNoncontiguous(self):
         "Test Teuchos.DefaultComm scan (SUM) method with noncontiguous int array"
@@ -742,7 +742,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         scanSums  = self.comm.scan(Teuchos.REDUCE_SUM, myVals)
         for i in range(1):
             for j in range(3):
-                self.assertEquals(scanSums[i,j], myPIN*myVals[i,j])
+                self.assertEqual(scanSums[i,j], myPIN*myVals[i,j])
 
     def testScanSumLong(self):
         "Test Teuchos.DefaultComm scan (SUM) method for longs"
@@ -750,7 +750,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         myVals   = arange(3)
         scanSums = self.comm.scan(Teuchos.REDUCE_SUM, myVals)
         for i in range(len(myVals)):
-            self.assertEquals(scanSums[i], myPIN*myVals[i])
+            self.assertEqual(scanSums[i], myPIN*myVals[i])
 
     def testScanSumLong2D(self):
         "Test Teuchos.DefaultComm scan (SUM) method for 2D long array"
@@ -760,7 +760,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         scanSums = self.comm.scan(Teuchos.REDUCE_SUM, myVals)
         for i in range(3):
             for j in range(4):
-                self.assertEquals(scanSums[i,j], myPIN*myVals[i,j])
+                self.assertEqual(scanSums[i,j], myPIN*myVals[i,j])
 
     def testScanSumLongNoncontiguous(self):
         "Test Teuchos.DefaultComm scan (SUM) method with noncontiguous long array"
@@ -771,7 +771,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         scanSums  = self.comm.scan(Teuchos.REDUCE_SUM, myVals)
         for i in range(1):
             for j in range(3):
-                self.assertEquals(scanSums[i,j], myPIN*myVals[i,j])
+                self.assertEqual(scanSums[i,j], myPIN*myVals[i,j])
 
     def testScanSumFloat(self):
         "Test Teuchos.DefaultComm scan (SUM) method for floats"
@@ -779,7 +779,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         myVals   = arange(4,dtype='f')
         scanSums = self.comm.scan(Teuchos.REDUCE_SUM, myVals)
         for i in range(len(myVals)):
-            self.assertEquals(scanSums[i], myPIN*myVals[i])
+            self.assertEqual(scanSums[i], myPIN*myVals[i])
 
     def testScanSumFloat2D(self):
         "Test Teuchos.DefaultComm scan (SUM) method for 2D float array"
@@ -789,7 +789,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         scanSums = self.comm.scan(Teuchos.REDUCE_SUM, myVals)
         for i in range(5):
             for j in range(3):
-                self.assertEquals(scanSums[i,j], myPIN*myVals[i,j])
+                self.assertEqual(scanSums[i,j], myPIN*myVals[i,j])
 
     def testScanSumFloatNoncontiguous(self):
         "Test Teuchos.DefaultComm scan (SUM) method with noncontiguous float array"
@@ -800,7 +800,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         scanSums  = self.comm.scan(Teuchos.REDUCE_SUM, myVals)
         for i in range(3):
             for j in range(2):
-                self.assertEquals(scanSums[i,j], myPIN*myVals[i,j])
+                self.assertEqual(scanSums[i,j], myPIN*myVals[i,j])
 
     def testScanSumDouble(self):
         "Test Teuchos.DefaultComm scan (SUM) method for doubles"
@@ -808,7 +808,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         myVals   = arange(4,dtype='d')
         scanSums = self.comm.scan(Teuchos.REDUCE_SUM, myVals)
         for i in range(len(myVals)):
-            self.assertEquals(scanSums[i], myPIN*myVals[i])
+            self.assertEqual(scanSums[i], myPIN*myVals[i])
 
     def testScanSumDouble2D(self):
         "Test Teuchos.DefaultComm scan (SUM) method for 2D double array"
@@ -818,7 +818,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         scanSums = self.comm.scan(Teuchos.REDUCE_SUM, myVals)
         for i in range(5):
             for j in range(3):
-                self.assertEquals(scanSums[i,j], myPIN*myVals[i,j])
+                self.assertEqual(scanSums[i,j], myPIN*myVals[i,j])
 
     def testScanSumDoubleNoncontiguous(self):
         "Test Teuchos.DefaultComm scan (SUM) method with noncontiguous double array"
@@ -829,7 +829,7 @@ class TeuchosDefaultCommTestCase(unittest.TestCase):
         scanSums  = self.comm.scan(Teuchos.REDUCE_SUM, myVals)
         for i in range(3):
             for j in range(2):
-                self.assertEquals(scanSums[i,j], myPIN*myVals[i,j])
+                self.assertEqual(scanSums[i,j], myPIN*myVals[i,j])
 
 ##########################################################################
 
@@ -850,11 +850,11 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
     def testRank(self):
         "Test Teuchos rank helper function"
         pid = Teuchos.rank(self.comm)
-        self.assert_(pid < Teuchos.size(self.comm))
+        self.assertTrue(pid < Teuchos.size(self.comm))
         if self.commType == "Serial":
             self.assertEqual(pid, 0)
         else:
-            self.assert_(pid >= 0)
+            self.assertTrue(pid >= 0)
 
     def testSize(self):
         "Test Teuchos size helper function"
@@ -862,7 +862,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         if self.commType == "Serial":
             self.assertEqual(n, 1)
         else:
-            self.assert_(n > 0)
+            self.assertTrue(n > 0)
 
     def testBroadcastBadArg(self):
         "Test Teuchos broadcast helper function with bad argument"
@@ -883,7 +883,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
             myVals = array([-1,-1,-1,-1,-1,-1],'i')
         Teuchos.broadcast(self.comm, 0, myVals)
         for i in range(len(rootVals)):
-            self.assertEquals(myVals[i], rootVals[i])
+            self.assertEqual(myVals[i], rootVals[i])
 
     def testBroadcastInt2D(self):
         "Test Teuchos broadcast helper function for 2D int array"
@@ -895,7 +895,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         Teuchos.broadcast(self.comm, 0, myVals)
         for i in range(2):
             for j in range(2):
-                self.assertEquals(myVals[i,j], rootVals[i,j])
+                self.assertEqual(myVals[i,j], rootVals[i,j])
 
     def testBroadcastLong(self):
         "Test Teuchos broadcast helper function for longs"
@@ -906,7 +906,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
             myVals = array([-1,-1,-1,-1,-1,-1])
         Teuchos.broadcast(self.comm, 0, myVals)
         for i in range(len(rootVals)):
-            self.assertEquals(myVals[i], rootVals[i])
+            self.assertEqual(myVals[i], rootVals[i])
 
     def testBroadcastLong2D(self):
         "Test Teuchos broadcast helper function for 2D long array"
@@ -918,7 +918,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         Teuchos.broadcast(self.comm, 0, myVals)
         for i in range(2):
             for j in range(2):
-                self.assertEquals(myVals[i,j], rootVals[i,j])
+                self.assertEqual(myVals[i,j], rootVals[i,j])
 
     def testBroadcastFloat(self):
         "Test Teuchos broadcast helper function for floats"
@@ -929,7 +929,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
             myVals = array([-1,-1,-1,-1,-1,-1],dtype='f')
         Teuchos.broadcast(self.comm, 0, myVals)
         for i in range(len(rootVals)):
-            self.assertEquals(myVals[i], rootVals[i])
+            self.assertEqual(myVals[i], rootVals[i])
 
     def testBroadcastFloat2D(self):
         "Test Teuchos broadcast helper function for 2D float array"
@@ -941,7 +941,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         Teuchos.broadcast(self.comm, 0, myVals)
         for i in range(2):
             for j in range(2):
-                self.assertEquals(myVals[i,j], rootVals[i,j])
+                self.assertEqual(myVals[i,j], rootVals[i,j])
 
     def testBroadcastDouble(self):
         "Test Teuchos broadcast helper function for doubles"
@@ -952,7 +952,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
             myVals = array([-1,-1,-1,-1,-1,-1],dtype='d')
         Teuchos.broadcast(self.comm, 0, myVals)
         for i in range(len(rootVals)):
-            self.assertEquals(myVals[i], rootVals[i])
+            self.assertEqual(myVals[i], rootVals[i])
 
     def testBroadcastDouble2D(self):
         "Test Teuchos broadcast helper function for 2D double array"
@@ -964,7 +964,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         Teuchos.broadcast(self.comm, 0, myVals)
         for i in range(2):
             for j in range(2):
-                self.assertEquals(myVals[i,j], rootVals[i,j])
+                self.assertEqual(myVals[i,j], rootVals[i,j])
 
     def testGatherAllInt(self):
         "Test Teuchos gatherAll helper function for ints"
@@ -975,7 +975,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         allVals    = Teuchos.gatherAll(self.comm, myVals)
         allVals.shape = (length,)
         for i in range(len(globalVals)):
-            self.assertEquals(allVals[i], globalVals[i])
+            self.assertEqual(allVals[i], globalVals[i])
 
     def testGatherAllInt2D(self):
         "Test Teuchos gatherAll helper function for 2D int array"
@@ -989,7 +989,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         for p in range(numProc):
             for i in range(2):
                 for j in range(2):
-                    self.assertEquals(allVals[p,i,j], globalVals[p,i,j])
+                    self.assertEqual(allVals[p,i,j], globalVals[p,i,j])
 
     def testGatherAllIntNoncontiguous(self):
         "Test Teuchos gatherAll helper function with noncontiguous int array"
@@ -998,9 +998,9 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         myArray   = baseArray[1:3,1:4] # Noncontiguous
         allArray  = Teuchos.gatherAll(self.comm, myArray)
         numProc   = Teuchos.size(self.comm)
-        self.assertEquals(allArray.shape, (numProc,2,3))
+        self.assertEqual(allArray.shape, (numProc,2,3))
         for p in range(numProc):
-            self.failUnless((allArray[p,:,:] == myArray).all())
+            self.assertTrue((allArray[p,:,:] == myArray).all())
 
     def testGatherAllLong(self):
         "Test Teuchos gatherAll helper function for longs"
@@ -1011,7 +1011,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         allVals    = Teuchos.gatherAll(self.comm, myVals)
         allVals.shape = (length,)
         for i in range(len(globalVals)):
-            self.assertEquals(allVals[i], globalVals[i])
+            self.assertEqual(allVals[i], globalVals[i])
 
     def testGatherAllLong2D(self):
         "Test Teuchos gatherAll helper function for 2D long array"
@@ -1025,7 +1025,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         for p in range(numProc):
             for i in range(2):
                 for j in range(2):
-                    self.assertEquals(allVals[p,i,j], globalVals[p,i,j])
+                    self.assertEqual(allVals[p,i,j], globalVals[p,i,j])
 
     def testGatherAllLongNoncontiguous(self):
         "Test Teuchos gatherAll helper function with noncontiguous long array"
@@ -1034,9 +1034,9 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         myArray   = baseArray[1:3,1:4] # Noncontiguous
         allArray  = Teuchos.gatherAll(self.comm, myArray)
         numProc   = Teuchos.size(self.comm)
-        self.assertEquals(allArray.shape, (numProc,2,3))
+        self.assertEqual(allArray.shape, (numProc,2,3))
         for p in range(numProc):
-            self.failUnless((allArray[p,:,:] == myArray).all())
+            self.assertTrue((allArray[p,:,:] == myArray).all())
 
     def testGatherAllFloat(self):
         "Test Teuchos gatherAll helper function for floats"
@@ -1047,7 +1047,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         allVals    = Teuchos.gatherAll(self.comm, myVals)
         allVals.shape = (length,)
         for i in range(len(globalVals)):
-            self.assertEquals(allVals[i], globalVals[i])
+            self.assertEqual(allVals[i], globalVals[i])
 
     def testGatherAllFloat2D(self):
         "Test Teuchos gatherAll helper function for 2D float array"
@@ -1061,7 +1061,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         for p in range(len(globalVals)):
             for i in range(2):
                 for j in range(2):
-                    self.assertEquals(allVals[p,i,j], globalVals[p,i,j])
+                    self.assertEqual(allVals[p,i,j], globalVals[p,i,j])
 
     def testGatherAllFloatNoncontiguous(self):
         "Test Teuchos gatherAll helper function with noncontiguous float array"
@@ -1070,9 +1070,9 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         myArray   = baseArray[1:4,1:3] # Noncontiguous
         allArray  = Teuchos.gatherAll(self.comm, myArray)
         numProc   = Teuchos.size(self.comm)
-        self.assertEquals(allArray.shape, (numProc,3,2))
+        self.assertEqual(allArray.shape, (numProc,3,2))
         for i in range(numProc):
-            self.failUnless((allArray[i,:,:] == myArray).all())
+            self.assertTrue((allArray[i,:,:] == myArray).all())
 
     def testGatherAllDouble(self):
         "Test Teuchos gatherAll helper function for doubles"
@@ -1083,7 +1083,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         allVals    = Teuchos.gatherAll(self.comm, myVals)
         allVals.shape = (length,)
         for i in range(len(globalVals)):
-            self.assertEquals(allVals[i], globalVals[i])
+            self.assertEqual(allVals[i], globalVals[i])
 
     def testGatherAllDouble2D(self):
         "Test Teuchos gatherAll helper function for 2D double array"
@@ -1097,7 +1097,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         for p in range(len(globalVals)):
             for i in range(2):
                 for j in range(2):
-                    self.assertEquals(allVals[p,i,j], globalVals[p,i,j])
+                    self.assertEqual(allVals[p,i,j], globalVals[p,i,j])
 
     def testGatherAllDoubleNoncontiguous(self):
         "Test Teuchos gatherAll helper function with noncontiguous double array"
@@ -1106,9 +1106,9 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         myArray   = baseArray[1:4,1:3] # Noncontiguous
         allArray  = Teuchos.gatherAll(self.comm, myArray)
         numProc   = Teuchos.size(self.comm)
-        self.assertEquals(allArray.shape, (numProc,3,2))
+        self.assertEqual(allArray.shape, (numProc,3,2))
         for i in range(numProc):
-            self.failUnless((allArray[i,:,:] == myArray).all())
+            self.assertTrue((allArray[i,:,:] == myArray).all())
 
     def testSumAllInt(self):
         "Test Teuchos reduceAll (SUM) helper function for ints"
@@ -1116,7 +1116,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         partialSums = arange(3,dtype='i')
         globalSums  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_SUM, partialSums)
         for i in range(len(partialSums)):
-            self.assertEquals(globalSums[i], numProc*partialSums[i])
+            self.assertEqual(globalSums[i], numProc*partialSums[i])
 
     def testSumAllInt2D(self):
         "Test Teuchos reduceAll (SUM) helper function for 2D int array"
@@ -1126,7 +1126,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         globalSums  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_SUM, partialSums)
         for i in range(3):
             for j in range(4):
-                self.assertEquals(globalSums[i,j], numProc*partialSums[i,j])
+                self.assertEqual(globalSums[i,j], numProc*partialSums[i,j])
 
     def testSumAllIntNoncontiguous(self):
         "Test Teuchos reduceAll (SUM) helper function with noncontiguous int array"
@@ -1137,7 +1137,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         globalSums  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_SUM, partialSums)
         for i in range(1):
             for j in range(3):
-                self.assertEquals(globalSums[i,j], numProc*partialSums[i,j])
+                self.assertEqual(globalSums[i,j], numProc*partialSums[i,j])
 
     def testSumAllLong(self):
         "Test Teuchos reduceAll (SUM) helper function for longs"
@@ -1145,7 +1145,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         partialSums = arange(3)
         globalSums  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_SUM, partialSums)
         for i in range(len(partialSums)):
-            self.assertEquals(globalSums[i], numProc*partialSums[i])
+            self.assertEqual(globalSums[i], numProc*partialSums[i])
 
     def testSumAllLong2D(self):
         "Test Teuchos reduceAll (SUM) helper function for 2D long array"
@@ -1155,7 +1155,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         globalSums  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_SUM, partialSums)
         for i in range(3):
             for j in range(4):
-                self.assertEquals(globalSums[i,j], numProc*partialSums[i,j])
+                self.assertEqual(globalSums[i,j], numProc*partialSums[i,j])
 
     def testSumAllLongNoncontiguous(self):
         "Test Teuchos reduceAll (SUM) helper function with noncontiguous long array"
@@ -1166,7 +1166,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         globalSums  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_SUM, partialSums)
         for i in range(1):
             for j in range(3):
-                self.assertEquals(globalSums[i,j], numProc*partialSums[i,j])
+                self.assertEqual(globalSums[i,j], numProc*partialSums[i,j])
 
     def testSumAllFloat(self):
         "Test Teuchos reduceAll (SUM) helper function for floats"
@@ -1174,7 +1174,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         partialSums = arange(4,dtype='f')
         globalSums  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_SUM, partialSums)
         for i in range(len(partialSums)):
-            self.assertEquals(globalSums[i], numProc*partialSums[i])
+            self.assertEqual(globalSums[i], numProc*partialSums[i])
 
     def testSumAllFloat2D(self):
         "Test Teuchos reduceAll (SUM) helper function for 2D float array"
@@ -1184,7 +1184,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         globalSums  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_SUM, partialSums)
         for i in range(5):
             for j in range(3):
-                self.assertEquals(globalSums[i,j], numProc*partialSums[i,j])
+                self.assertEqual(globalSums[i,j], numProc*partialSums[i,j])
 
     def testSumAllFloatNoncontiguous(self):
         "Test Teuchos reduceAll (SUM) helper function with noncontiguous float array"
@@ -1195,7 +1195,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         globalSums  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_SUM, partialSums)
         for i in range(3):
             for j in range(2):
-                self.assertEquals(globalSums[i,j], numProc*partialSums[i,j])
+                self.assertEqual(globalSums[i,j], numProc*partialSums[i,j])
 
     def testSumAllDouble(self):
         "Test Teuchos reduceAll (SUM) helper function for doubles"
@@ -1203,7 +1203,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         partialSums = arange(4,dtype='d')
         globalSums  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_SUM, partialSums)
         for i in range(len(partialSums)):
-            self.assertEquals(globalSums[i], numProc*partialSums[i])
+            self.assertEqual(globalSums[i], numProc*partialSums[i])
 
     def testSumAllDouble2D(self):
         "Test Teuchos reduceAll (SUM) helper function for 2D double array"
@@ -1213,7 +1213,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         globalSums  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_SUM, partialSums)
         for i in range(5):
             for j in range(3):
-                self.assertEquals(globalSums[i,j], numProc*partialSums[i,j])
+                self.assertEqual(globalSums[i,j], numProc*partialSums[i,j])
 
     def testSumAllDoubleNoncontiguous(self):
         "Test Teuchos reduceAll (SUM) helper function with noncontiguous double array"
@@ -1224,7 +1224,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         globalSums  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_SUM, partialSums)
         for i in range(3):
             for j in range(2):
-                self.assertEquals(globalSums[i,j], numProc*partialSums[i,j])
+                self.assertEqual(globalSums[i,j], numProc*partialSums[i,j])
 
     def testMaxAllInt(self):
         "Test Teuchos reduceAll (MAX) helper function for ints"
@@ -1233,7 +1233,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         partialMaxs = array(baseArray) * (Teuchos.rank(self.comm)+1)
         globalMaxs  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_MAX, partialMaxs)
         for i in range(len(baseArray)):
-            self.assertEquals(globalMaxs[i], numProc*baseArray[i])
+            self.assertEqual(globalMaxs[i], numProc*baseArray[i])
 
     def testMaxAllInt2D(self):
         "Test Teuchos reduceAll (MAX) helper function for 2D int array"
@@ -1244,7 +1244,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         globalMaxs  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_MAX, partialMaxs)
         for i in range(3):
             for j in range(3):
-                self.assertEquals(globalMaxs[i,j], numProc*baseArray[i,j])
+                self.assertEqual(globalMaxs[i,j], numProc*baseArray[i,j])
 
     def testMaxAllIntNoncontiguous(self):
         "Test Teuchos reduceAll (MAX) helper function with noncontiguous int array"
@@ -1256,7 +1256,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         globalMaxs  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_MAX, partialMaxs)
         for i in range(3):
             for j in range(3):
-                self.assertEquals(globalMaxs[i,j], numProc*baseMaxs[i,j])
+                self.assertEqual(globalMaxs[i,j], numProc*baseMaxs[i,j])
 
     def testMaxAllLong(self):
         "Test Teuchos reduceAll (MAX) helper function for longs"
@@ -1265,7 +1265,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         partialMaxs = array(baseArray) * (Teuchos.rank(self.comm)+1)
         globalMaxs  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_MAX, partialMaxs)
         for i in range(len(baseArray)):
-            self.assertEquals(globalMaxs[i], numProc*baseArray[i])
+            self.assertEqual(globalMaxs[i], numProc*baseArray[i])
 
     def testMaxAllLong2D(self):
         "Test Teuchos reduceAll (MAX) helper function for 2D long array"
@@ -1276,7 +1276,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         globalMaxs  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_MAX, partialMaxs)
         for i in range(3):
             for j in range(3):
-                self.assertEquals(globalMaxs[i,j], numProc*baseArray[i,j])
+                self.assertEqual(globalMaxs[i,j], numProc*baseArray[i,j])
 
     def testMaxAllLongNoncontiguous(self):
         "Test Teuchos reduceAll (MAX) helper function with noncontiguous long array"
@@ -1288,7 +1288,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         globalMaxs  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_MAX, partialMaxs)
         for i in range(3):
             for j in range(3):
-                self.assertEquals(globalMaxs[i,j], numProc*baseMaxs[i,j])
+                self.assertEqual(globalMaxs[i,j], numProc*baseMaxs[i,j])
 
     def testMaxAllFloat(self):
         "Test Teuchos reduceAll (MAX) helper function for floats"
@@ -1297,7 +1297,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         partialMaxs = array(baseArray) * (Teuchos.rank(self.comm)+1)
         globalMaxs  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_MAX, partialMaxs)
         for i in range(len(baseArray)):
-            self.assertEquals(globalMaxs[i], numProc*baseArray[i])
+            self.assertEqual(globalMaxs[i], numProc*baseArray[i])
 
     def testMaxAllFloat2D(self):
         "Test Teuchos reduceAll (MAX) helper function for 2D float array"
@@ -1308,7 +1308,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         globalMaxs  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_MAX, partialMaxs)
         for i in range(4):
             for j in range(4):
-                self.assertEquals(globalMaxs[i,j], numProc*baseArray[i,j])
+                self.assertEqual(globalMaxs[i,j], numProc*baseArray[i,j])
 
     def testMaxAllFloatNoncontiguous(self):
         "Test Teuchos reduceAll (MAX) helper function with noncontiguous float array"
@@ -1320,7 +1320,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         globalMaxs  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_MAX, partialMaxs)
         for i in range(2):
             for j in range(3):
-                self.assertEquals(globalMaxs[i,j], numProc*baseMaxs[i,j])
+                self.assertEqual(globalMaxs[i,j], numProc*baseMaxs[i,j])
 
     def testMaxAllDouble(self):
         "Test Teuchos reduceAll (MAX) helper function for doubles"
@@ -1329,7 +1329,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         partialMaxs = array(baseArray) * (Teuchos.rank(self.comm)+1)
         globalMaxs  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_MAX, partialMaxs)
         for i in range(len(baseArray)):
-            self.assertEquals(globalMaxs[i], numProc*baseArray[i])
+            self.assertEqual(globalMaxs[i], numProc*baseArray[i])
 
     def testMaxAllDouble2D(self):
         "Test Teuchos reduceAll (MAX) helper function for 2D double array"
@@ -1340,7 +1340,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         globalMaxs  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_MAX, partialMaxs)
         for i in range(4):
             for j in range(4):
-                self.assertEquals(globalMaxs[i,j], numProc*baseArray[i,j])
+                self.assertEqual(globalMaxs[i,j], numProc*baseArray[i,j])
 
     def testMaxAllDoubleNoncontiguous(self):
         "Test Teuchos reduceAll (MAX) helper function with noncontiguous double array"
@@ -1352,7 +1352,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         globalMaxs  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_MAX, partialMaxs)
         for i in range(2):
             for j in range(3):
-                self.assertEquals(globalMaxs[i,j], numProc*baseMaxs[i,j])
+                self.assertEqual(globalMaxs[i,j], numProc*baseMaxs[i,j])
 
     def testMinAllInt(self):
         "Test Teuchos reduceAll (MIN) helper function for ints"
@@ -1360,7 +1360,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         partialMins = array(baseArray) * (Teuchos.rank(self.comm)+1)
         globalMins  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_MIN, partialMins)
         for i in range(len(baseArray)):
-            self.assertEquals(globalMins[i], baseArray[i])
+            self.assertEqual(globalMins[i], baseArray[i])
 
     def testMinAllInt2D(self):
         "Test Teuchos reduceAll (MIN) helper function for 2D int array"
@@ -1370,7 +1370,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         globalMins  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_MIN, partialMins)
         for i in range(3):
             for j in range(6):
-                self.assertEquals(globalMins[i,j], baseArray[i,j])
+                self.assertEqual(globalMins[i,j], baseArray[i,j])
 
     def testMinAllIntNoncontiguous(self):
         "Test Teuchos reduceAll (MIN) helper function with noncontiguous int array"
@@ -1381,7 +1381,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         globalMins  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_MIN, partialMins)
         for i in range(2):
             for j in range(4):
-                self.assertEquals(globalMins[i,j], baseArray[i,j])
+                self.assertEqual(globalMins[i,j], baseArray[i,j])
 
     def testMinAllLong(self):
         "Test Teuchos reduceAll (MIN) helper function for longs"
@@ -1389,7 +1389,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         partialMins = array(baseArray) * (Teuchos.rank(self.comm)+1)
         globalMins  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_MIN, partialMins)
         for i in range(len(baseArray)):
-            self.assertEquals(globalMins[i], baseArray[i])
+            self.assertEqual(globalMins[i], baseArray[i])
 
     def testMinAllLong2D(self):
         "Test Teuchos reduceAll (MIN) helper function for 2D long array"
@@ -1399,7 +1399,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         globalMins  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_MIN, partialMins)
         for i in range(3):
             for j in range(6):
-                self.assertEquals(globalMins[i,j], baseArray[i,j])
+                self.assertEqual(globalMins[i,j], baseArray[i,j])
 
     def testMinAllLongNoncontiguous(self):
         "Test Teuchos reduceAll (MIN) helper function with noncontiguous long array"
@@ -1410,7 +1410,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         globalMins  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_MIN, partialMins)
         for i in range(2):
             for j in range(4):
-                self.assertEquals(globalMins[i,j], baseArray[i,j])
+                self.assertEqual(globalMins[i,j], baseArray[i,j])
 
     def testMinAllFloat(self):
         "Test Teuchos reduceAll (MIN) helper function for floats"
@@ -1418,7 +1418,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         partialMins = array(baseArray) * (Teuchos.rank(self.comm)+1)
         globalMins  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_MIN, partialMins)
         for i in range(len(baseArray)):
-            self.assertEquals(globalMins[i], baseArray[i])
+            self.assertEqual(globalMins[i], baseArray[i])
 
     def testMinAllFloat2D(self):
         "Test Teuchos reduceAll (MIN) helper function for 2D float array"
@@ -1428,7 +1428,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         globalMins  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_MIN, partialMins)
         for i in range(6):
             for j in range(5):
-                self.assertEquals(globalMins[i,j], baseArray[i,j])
+                self.assertEqual(globalMins[i,j], baseArray[i,j])
 
     def testMinAllFloatNoncontiguous(self):
         "Test Teuchos reduceAll (MIN) helper function with noncontiguous float array"
@@ -1439,7 +1439,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         globalMins  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_MIN, partialMins)
         for i in range(3):
             for j in range(3):
-                self.assertEquals(globalMins[i,j], baseArray[i,j])
+                self.assertEqual(globalMins[i,j], baseArray[i,j])
 
     def testMinAllDouble(self):
         "Test Teuchos reduceAll (MIN) helper function for doubles"
@@ -1447,7 +1447,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         partialMins = array(baseArray) * (Teuchos.rank(self.comm)+1)
         globalMins  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_MIN, partialMins)
         for i in range(len(baseArray)):
-            self.assertEquals(globalMins[i], baseArray[i])
+            self.assertEqual(globalMins[i], baseArray[i])
 
     def testMinAllDouble2D(self):
         "Test Teuchos reduceAll (MIN) helper function for 2D double array"
@@ -1457,7 +1457,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         globalMins  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_MIN, partialMins)
         for i in range(6):
             for j in range(5):
-                self.assertEquals(globalMins[i,j], baseArray[i,j])
+                self.assertEqual(globalMins[i,j], baseArray[i,j])
 
     def testMinAllDoubleNoncontiguous(self):
         "Test Teuchos reduceAll (MIN) helper function with noncontiguous double array"
@@ -1468,7 +1468,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         globalMins  = Teuchos.reduceAll(self.comm, Teuchos.REDUCE_MIN, partialMins)
         for i in range(3):
             for j in range(3):
-                self.assertEquals(globalMins[i,j], baseArray[i,j])
+                self.assertEqual(globalMins[i,j], baseArray[i,j])
 
     def testScanSumInt(self):
         "Test Teuchos scan (SUM) helper function for ints"
@@ -1476,7 +1476,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         myVals   = arange(3,dtype='i')
         scanSums = Teuchos.scan(self.comm, Teuchos.REDUCE_SUM, myVals)
         for i in range(len(myVals)):
-            self.assertEquals(scanSums[i], myPIN*myVals[i])
+            self.assertEqual(scanSums[i], myPIN*myVals[i])
 
     def testScanSumInt2D(self):
         "Test Teuchos scan (SUM) helper function for 2D int array"
@@ -1486,7 +1486,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         scanSums = Teuchos.scan(self.comm, Teuchos.REDUCE_SUM, myVals)
         for i in range(3):
             for j in range(4):
-                self.assertEquals(scanSums[i,j], myPIN*myVals[i,j])
+                self.assertEqual(scanSums[i,j], myPIN*myVals[i,j])
 
     def testScanSumIntNoncontiguous(self):
         "Test Teuchos scan (SUM) helper function with noncontiguous int array"
@@ -1497,7 +1497,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         scanSums  = Teuchos.scan(self.comm, Teuchos.REDUCE_SUM, myVals)
         for i in range(1):
             for j in range(3):
-                self.assertEquals(scanSums[i,j], myPIN*myVals[i,j])
+                self.assertEqual(scanSums[i,j], myPIN*myVals[i,j])
 
     def testScanSumLong(self):
         "Test Teuchos scan (SUM) helper function for longs"
@@ -1505,7 +1505,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         myVals   = arange(3)
         scanSums = Teuchos.scan(self.comm, Teuchos.REDUCE_SUM, myVals)
         for i in range(len(myVals)):
-            self.assertEquals(scanSums[i], myPIN*myVals[i])
+            self.assertEqual(scanSums[i], myPIN*myVals[i])
 
     def testScanSumLong2D(self):
         "Test Teuchos scan (SUM) helper function for 2D long array"
@@ -1515,7 +1515,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         scanSums = Teuchos.scan(self.comm, Teuchos.REDUCE_SUM, myVals)
         for i in range(3):
             for j in range(4):
-                self.assertEquals(scanSums[i,j], myPIN*myVals[i,j])
+                self.assertEqual(scanSums[i,j], myPIN*myVals[i,j])
 
     def testScanSumLongNoncontiguous(self):
         "Test Teuchos scan (SUM) helper function with noncontiguous long array"
@@ -1526,7 +1526,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         scanSums  = Teuchos.scan(self.comm, Teuchos.REDUCE_SUM, myVals)
         for i in range(1):
             for j in range(3):
-                self.assertEquals(scanSums[i,j], myPIN*myVals[i,j])
+                self.assertEqual(scanSums[i,j], myPIN*myVals[i,j])
 
     def testScanSumFloat(self):
         "Test Teuchos scan (SUM) helper function for floats"
@@ -1534,7 +1534,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         myVals   = arange(4,dtype='f')
         scanSums = Teuchos.scan(self.comm, Teuchos.REDUCE_SUM, myVals)
         for i in range(len(myVals)):
-            self.assertEquals(scanSums[i], myPIN*myVals[i])
+            self.assertEqual(scanSums[i], myPIN*myVals[i])
 
     def testScanSumFloat2D(self):
         "Test Teuchos scan (SUM) helper function for 2D float array"
@@ -1544,7 +1544,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         scanSums = Teuchos.scan(self.comm, Teuchos.REDUCE_SUM, myVals)
         for i in range(5):
             for j in range(3):
-                self.assertEquals(scanSums[i,j], myPIN*myVals[i,j])
+                self.assertEqual(scanSums[i,j], myPIN*myVals[i,j])
 
     def testScanSumFloatNoncontiguous(self):
         "Test Teuchos scan (SUM) helper function with noncontiguous float array"
@@ -1555,7 +1555,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         scanSums  = Teuchos.scan(self.comm, Teuchos.REDUCE_SUM, myVals)
         for i in range(3):
             for j in range(2):
-                self.assertEquals(scanSums[i,j], myPIN*myVals[i,j])
+                self.assertEqual(scanSums[i,j], myPIN*myVals[i,j])
 
     def testScanSumDouble(self):
         "Test Teuchos scan (SUM) helper function for doubles"
@@ -1563,7 +1563,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         myVals   = arange(4,dtype='d')
         scanSums = Teuchos.scan(self.comm, Teuchos.REDUCE_SUM, myVals)
         for i in range(len(myVals)):
-            self.assertEquals(scanSums[i], myPIN*myVals[i])
+            self.assertEqual(scanSums[i], myPIN*myVals[i])
 
     def testScanSumDouble2D(self):
         "Test Teuchos scan (SUM) helper function for 2D double array"
@@ -1573,7 +1573,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         scanSums = Teuchos.scan(self.comm, Teuchos.REDUCE_SUM, myVals)
         for i in range(5):
             for j in range(3):
-                self.assertEquals(scanSums[i,j], myPIN*myVals[i,j])
+                self.assertEqual(scanSums[i,j], myPIN*myVals[i,j])
 
     def testScanSumDoubleNoncontiguous(self):
         "Test Teuchos scan (SUM) helper function with noncontiguous double array"
@@ -1584,7 +1584,7 @@ class TeuchosDefaultCommHelpersTestCase(unittest.TestCase):
         scanSums  = Teuchos.scan(self.comm, Teuchos.REDUCE_SUM, myVals)
         for i in range(3):
             for j in range(2):
-                self.assertEquals(scanSums[i,j], myPIN*myVals[i,j])
+                self.assertEqual(scanSums[i,j], myPIN*myVals[i,j])
 
 ##########################################################################
 

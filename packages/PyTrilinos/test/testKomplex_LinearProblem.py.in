@@ -109,7 +109,7 @@ class KomplexLinearProblemTestCase(unittest.TestCase):
                                     1, 0, self.Ai,
                                     self.xr, self.xi,
                                     self.br, self.bi)
-        self.failUnless(isinstance(klp, Komplex.LinearProblem))
+        self.assertTrue(isinstance(klp, Komplex.LinearProblem))
 
     def testExtractSolution(self):
         "Test Komplex.LinearProblem ExtractSolution method"
@@ -123,8 +123,8 @@ class KomplexLinearProblemTestCase(unittest.TestCase):
         ur[:] = -1
         ui[:] = -1
         klp.ExtractSolution(ur, ui)
-        self.failUnless((ur[:] == self.xr[:]).all())
-        self.failUnless((ui[:] == self.xi[:]).all())
+        self.assertTrue((ur[:] == self.xr[:]).all())
+        self.assertTrue((ui[:] == self.xi[:]).all())
 
     def testKomplexProblem(self):
         "Test Komplex.LinearProblem KomplexProblem method"
@@ -133,7 +133,7 @@ class KomplexLinearProblemTestCase(unittest.TestCase):
                                     self.xr, self.xi,
                                     self.br, self.bi)
         elp = klp.KomplexProblem()
-        self.failUnless(isinstance(elp, Epetra.LinearProblem))
+        self.assertTrue(isinstance(elp, Epetra.LinearProblem))
 
     def testUpdateValues(self):
         "Test Komplex.LinearProblem UpdateValues method"

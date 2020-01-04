@@ -86,48 +86,48 @@ class EpetraFEVectorTestCase(unittest.TestCase):
     def testConstructor01(self):
         "Test Epetra.FEVector (BlockMap,bool) constructor"
         ev = Epetra.FEVector(self.map,1,True)
-        self.assertEquals(ev.Label(),        "Epetra::MultiVector"     )
-        self.assertEquals(ev.NumVectors(),   1                         )
-        self.assertEquals(ev.MyLength(),     self.length               )
-        self.assertEquals(ev.GlobalLength(), self.length*comm.NumProc())
-        self.assertEquals((ev == 0.0).all(), True                      )
+        self.assertEqual(ev.Label(),        "Epetra::MultiVector"     )
+        self.assertEqual(ev.NumVectors(),   1                         )
+        self.assertEqual(ev.MyLength(),     self.length               )
+        self.assertEqual(ev.GlobalLength(), self.length*comm.NumProc())
+        self.assertEqual((ev == 0.0).all(), True                      )
 
     def testConstructor02(self):
         "Test Epetra.FEVector (BlockMap) constructor"
         ev = Epetra.FEVector(self.map,1)
-        self.assertEquals(ev.Label(),        "Epetra::MultiVector"     )
-        self.assertEquals(ev.NumVectors(),   1                         )
-        self.assertEquals(ev.MyLength(),     self.length               )
-        self.assertEquals(ev.GlobalLength(), self.length*comm.NumProc())
+        self.assertEqual(ev.Label(),        "Epetra::MultiVector"     )
+        self.assertEqual(ev.NumVectors(),   1                         )
+        self.assertEqual(ev.MyLength(),     self.length               )
+        self.assertEqual(ev.GlobalLength(), self.length*comm.NumProc())
 
     def testConstructor03(self):
         "Test Epetra.FEVector copy constructor"
         ev1 = Epetra.FEVector(self.map,1)
         ev2 = Epetra.FEVector(ev1)
-        self.assertEquals(ev2.Label(),        "Epetra::MultiVector")
-        self.assertEquals(ev2.NumVectors(),   ev1.NumVectors()     )
-        self.assertEquals(ev2.MyLength(),     ev1.MyLength()       )
-        self.assertEquals(ev2.GlobalLength(), ev1.GlobalLength()   )
+        self.assertEqual(ev2.Label(),        "Epetra::MultiVector")
+        self.assertEqual(ev2.NumVectors(),   ev1.NumVectors()     )
+        self.assertEqual(ev2.MyLength(),     ev1.MyLength()       )
+        self.assertEqual(ev2.GlobalLength(), ev1.GlobalLength()   )
         for i in range(len(ev1)):
-            self.assertEquals(ev1[0,i], ev2[0,i])
+            self.assertEqual(ev1[0,i], ev2[0,i])
 
     def notestReplaceMap1(self):
         "Test Epetra.FEVector ReplaceMap method with good map"
         blockMap = Epetra.BlockMap(3*self.comm.NumProc(),3,0,self.comm)
         ev = Epetra.FEVector(self.map,1)
         result = ev.ReplaceMap(blockMap)
-        self.assertEquals(result, 0)
+        self.assertEqual(result, 0)
         newMap = ev.Map()
-        self.assertEquals(newMap.ElementSize(), blockMap.ElementSize())
+        self.assertEqual(newMap.ElementSize(), blockMap.ElementSize())
 
     def testReplaceMap2(self):
         "Test Epetra.FEVector ReplaceMap method with bad map"
         blockMap = Epetra.BlockMap(2*self.comm.NumProc(),5,0,self.comm)
         ev = Epetra.FEVector(self.map,1)
         result = ev.ReplaceMap(blockMap)
-        self.assertEquals(result, -1)
+        self.assertEqual(result, -1)
         newMap = ev.Map()
-        self.assertEquals(newMap.ElementSize(), self.map.ElementSize())
+        self.assertEqual(newMap.ElementSize(), self.map.ElementSize())
 
     def testReplaceGlobalValue1(self):
         "Test Epetra.FEVector ReplaceGlobalValue method"
@@ -135,13 +135,13 @@ class EpetraFEVectorTestCase(unittest.TestCase):
         ev[0,:] = self.numPyArray1
         gid = 4
         lid = self.map.LID(gid)
-        self.assertEquals(ev[0,gid], 0.5)
+        self.assertEqual(ev[0,gid], 0.5)
         result = ev.ReplaceGlobalValue(gid,0,5.0)
         if lid >= 0:
-            self.assertEquals(result, 0)
-            self.assertEquals(ev[0,lid], 5.0)
+            self.assertEqual(result, 0)
+            self.assertEqual(ev[0,lid], 5.0)
         else:
-            self.assertEquals(result, 1)
+            self.assertEqual(result, 1)
 
     def testReplaceGlobalValues1(self):
         "Test Epetra.FEVector ReplaceGlobalValues method"
@@ -153,7 +153,7 @@ class EpetraFEVectorTestCase(unittest.TestCase):
         for i in range(len(gids)):
             gid = gids[i]
             lid = lids[i]
-            self.assertEquals(result, 0)
+            self.assertEqual(result, 0)
             if lid >= 0:
                 self.assertAlmostEquals(ev[0,lid], 1.1*gid)
 
@@ -162,10 +162,10 @@ class EpetraFEVectorTestCase(unittest.TestCase):
         ev = Epetra.FEVector(self.map,1)
         ev[0,:] = self.numPyArray1
         lid = 4
-        self.assertEquals(ev[0,lid], 0.5)
+        self.assertEqual(ev[0,lid], 0.5)
         result = ev.ReplaceMyValue(lid,0,5.0)
-        self.assertEquals(result, 0)
-        self.assertEquals(ev[0,lid], 5.0)
+        self.assertEqual(result, 0)
+        self.assertEqual(ev[0,lid], 5.0)
 
     def testSumIntoGlobalValue1(self):
         "Test Epetra.FEVector SumIntoGlobalValue method"
@@ -173,13 +173,13 @@ class EpetraFEVectorTestCase(unittest.TestCase):
         ev[0,:] = self.numPyArray1
         gid = 4
         lid = self.map.LID(gid)
-        self.assertEquals(ev[0,gid], 0.5)
+        self.assertEqual(ev[0,gid], 0.5)
         result = ev.SumIntoGlobalValue(gid,0,0.5)
         if lid >= 0:
-            self.assertEquals(result, 0)
-            self.assertEquals(ev[0,lid], 1.0)
+            self.assertEqual(result, 0)
+            self.assertEqual(ev[0,lid], 1.0)
         else:
-            self.assertEquals(result, 1)
+            self.assertEqual(result, 1)
 
     def testSumIntoGlobalValues1(self):
         "Test Epetra.FEVector SumIntoGlobalValues method"
@@ -191,7 +191,7 @@ class EpetraFEVectorTestCase(unittest.TestCase):
         for i in range(len(gids)):
             gid = gids[i]
             lid = lids[i]
-            self.assertEquals(result, 0)
+            self.assertEqual(result, 0)
             if lid >= 0:
                 self.assertAlmostEquals(ev[0,lid], 0.125*lid+1.1*gid)
 
@@ -200,20 +200,20 @@ class EpetraFEVectorTestCase(unittest.TestCase):
         ev = Epetra.FEVector(self.map,1)
         ev[0,:] = self.numPyArray1
         lid = 4
-        self.assertEquals(ev[0,lid], 0.5)
+        self.assertEqual(ev[0,lid], 0.5)
         result = ev.SumIntoMyValue(lid,0,0.5)
-        self.assertEquals(result, 0)
-        self.assertEquals(ev[0,lid], 1.0)
+        self.assertEqual(result, 0)
+        self.assertEqual(ev[0,lid], 1.0)
 
     def testPutScalar(self):
         "Test Epetra.FEVector PutScalar method"
         ev = Epetra.FEVector(self.map,1)
         for i in range(self.map.NumMyPoints()):
-            self.assertEquals(ev[0,i], 0.0)
+            self.assertEqual(ev[0,i], 0.0)
         scalar = 3.14
         ev.PutScalar(scalar)
         for i in range(self.map.NumMyPoints()):
-            self.assertEquals(ev[0,i], scalar)
+            self.assertEqual(ev[0,i], scalar)
 
     def testRandom(self):
         "Test Epetra.FEVector Random method"
@@ -221,62 +221,62 @@ class EpetraFEVectorTestCase(unittest.TestCase):
         scalar = 3.14
         ev.PutScalar(scalar)
         for i in range(self.map.NumMyPoints()):
-            self.assertEquals(ev[0,i], scalar)
+            self.assertEqual(ev[0,i], scalar)
         ev.Random()
         for i in range(self.map.NumMyPoints()):
-            self.assertEquals(ev[0,i]>-1.0, True)
-            self.assertEquals(ev[0,i]< 1.0, True)
+            self.assertEqual(ev[0,i]>-1.0, True)
+            self.assertEqual(ev[0,i]< 1.0, True)
 
     def testExtractCopy(self):
         "Test Epetra.FEVector ExtractCopy method"
         ev    = Epetra.FEVector(self.map,1)
         ev[0,:] = self.numPyArray1
         array = ev.ExtractCopy()
-        self.assertEquals(type(array), ndarray)
-        self.failUnless((ev.array == array).all())
-        self.assertEquals(ev.array is array, False)
+        self.assertEqual(type(array), ndarray)
+        self.assertTrue((ev.array == array).all())
+        self.assertEqual(ev.array is array, False)
 
     def testExtractView(self):
         "Test Epetra.FEVector ExtractView method"
         ev    = Epetra.FEVector(self.map,1)
         ev[0,:] = self.numPyArray1
         array = ev.ExtractView()
-        self.assertEquals(type(array), ndarray)
-        self.failUnless((ev.array == array).all())
-        self.assertEquals(ev.array is array, True)
+        self.assertEqual(type(array), ndarray)
+        self.assertTrue((ev.array == array).all())
+        self.assertEqual(ev.array is array, True)
 
     def testNumVectors(self):
         "Test Epetra.FEVector NumVectors method"
         ev = Epetra.FEVector(self.map,1)
-        self.assertEquals(ev.NumVectors(), 1)
+        self.assertEqual(ev.NumVectors(), 1)
 
     def testMyLength(self):
         "Test Epetra.FEVector MyLength method"
         ev = Epetra.FEVector(self.map,1)
         ev[0,:] = self.numPyArray1
-        self.assertEquals(ev.MyLength(), self.length)
+        self.assertEqual(ev.MyLength(), self.length)
 
     def testGlobalLength(self):
         "Test Epetra.FEVector GlobalLength method"
         ev = Epetra.FEVector(self.map,1)
         ev[0,:] = self.numPyArray1
-        self.assertEquals(ev.GlobalLength(), self.length*self.comm.NumProc())
+        self.assertEqual(ev.GlobalLength(), self.length*self.comm.NumProc())
 
     def testSeed(self):
         "Test Epetra.FEVector Seed method"
         ev   = Epetra.FEVector(self.map,1)
         seed = ev.Seed()
         max  = 2**31 - 1
-        self.assertEquals(seed>0,   True)
-        self.assertEquals(seed<max, True)
+        self.assertEqual(seed>0,   True)
+        self.assertEqual(seed<max, True)
 
     def testSetSeed1(self):
         "Test Epetra.FEVector SetSeed method"
         ev     = Epetra.FEVector(self.map,1)
         seed   = 2005
         result = ev.SetSeed(seed)
-        self.assertEquals(result,    0   )
-        self.assertEquals(ev.Seed(), seed)
+        self.assertEqual(result,    0   )
+        self.assertEqual(ev.Seed(), seed)
 
     def testSetSeed2(self):
         "Test Epetra.FEVector SetSeed method with negative seed"
@@ -320,10 +320,10 @@ class EpetraFEVectorTestCase(unittest.TestCase):
 #         "Test Epetra.FEVector Abs method"
 #         ev1 = Epetra.FEVector(self.map,1,self.numPyArray1)
 #         ev2 = Epetra.FEVector(self.map,1)
-#         self.assertEquals(ev2[0,:],0.0)
+#         self.assertEqual(ev2[0,:],0.0)
 #         result = ev2.Abs(ev1)
-#         self.assertEquals(result,0)
-#         self.assertEquals(ev2[0,:],abs(self.numPyArray1))
+#         self.assertEqual(result,0)
+#         self.assertEqual(ev2[0,:],abs(self.numPyArray1))
 
     def testReciprocal(self):
         "Test Epetra.FEVector Reciprocal method"
@@ -332,10 +332,10 @@ class EpetraFEVectorTestCase(unittest.TestCase):
         ev1  = Epetra.FEVector(self.map,1)
         ev1[0,:] = a
         ev2  = Epetra.FEVector(self.map,1)
-        self.failUnless((ev2.array == 0.0).all())
+        self.assertTrue((ev2.array == 0.0).all())
         result = ev2.Reciprocal(ev1)
-        self.assertEquals(result,0)
-        self.failUnless((ev2.array == 1.0/a).all())
+        self.assertEqual(result,0)
+        self.assertTrue((ev2.array == 1.0/a).all())
 
     def testScale1(self):
         "Test Epetra.FEVector Scale method in-place"
@@ -343,8 +343,8 @@ class EpetraFEVectorTestCase(unittest.TestCase):
         ev = Epetra.FEVector(self.map,1)
         ev[0,:] = self.numPyArray2
         result = ev.Scale(2.0)
-        self.assertEquals(result,0)
-        self.failUnless((abs(ev.array - 2.0*a) < 1e-10).all())
+        self.assertEqual(result,0)
+        self.assertTrue((abs(ev.array - 2.0*a) < 1e-10).all())
 
     def testScale2(self):
         "Test Epetra.FEVector Scale method with replace"
@@ -352,10 +352,10 @@ class EpetraFEVectorTestCase(unittest.TestCase):
         ev1 = Epetra.FEVector(self.map,1)
         ev1[0,:] = a
         ev2 = Epetra.FEVector(self.map,1)
-        self.failUnless((ev2.array == 0.0).all())
+        self.assertTrue((ev2.array == 0.0).all())
         result = ev2.Scale(pi,ev1)
-        self.assertEquals(result,0)
-        self.failUnless((ev2.array == pi*a).all())
+        self.assertEqual(result,0)
+        self.assertTrue((ev2.array == pi*a).all())
 
     def testUpdate1(self):
         "Test Epetra.FEVector Update method with one Vector"
@@ -366,8 +366,8 @@ class EpetraFEVectorTestCase(unittest.TestCase):
         ev2 = Epetra.FEVector(self.map,1)
         ev2[0,:] = self.numPyArray2
         result = ev2.Update(2.0,ev1,3.0)
-        self.assertEquals(result,0)
-        self.failUnless((abs(ev2.array - (2.0*a + 3.0*b)) < 1e-10).all())
+        self.assertEqual(result,0)
+        self.assertTrue((abs(ev2.array - (2.0*a + 3.0*b)) < 1e-10).all())
 
     def testUpdate2(self):
         "Test Epetra.FEVector Update method with two Vectors"
@@ -377,8 +377,8 @@ class EpetraFEVectorTestCase(unittest.TestCase):
         ev2 = Epetra.FEVector(self.map,1)
         ev2[0,:] = self.numPyArray2
         result = ev0.Update(2.0,ev1,3.0,ev2,pi)
-        self.assertEquals(result,0)
-        self.failUnless((ev0.array == 2.0*self.numPyArray1 + 3.0*self.numPyArray2).all())
+        self.assertEqual(result,0)
+        self.assertTrue((ev0.array == 2.0*self.numPyArray1 + 3.0*self.numPyArray2).all())
 
     def testNorm1(self):
         "Test Epetra.FEVector Norm1 method"
@@ -387,7 +387,7 @@ class EpetraFEVectorTestCase(unittest.TestCase):
         ev[0,:] = a
         result  = sum(self.numPyArray1) * self.comm.NumProc()
         norm1   = ev.Norm1()
-        self.assertEquals(norm1, result)
+        self.assertEqual(norm1, result)
 
     def testNorm2(self):
         "Test Epetra.FEVector Norm2 method"
@@ -396,7 +396,7 @@ class EpetraFEVectorTestCase(unittest.TestCase):
         ev[0,:] = a
         result  = sqrt(sum(self.numPyArray2*self.numPyArray2) * self.comm.NumProc())
         norm2   = ev.Norm2()
-        self.assertEquals(norm2, result)
+        self.assertEqual(norm2, result)
 
     def testNormInf(self):
         "Test Epetra.FEVector NormInf method"
@@ -405,7 +405,7 @@ class EpetraFEVectorTestCase(unittest.TestCase):
         ev[0,:] = a
         result  = max(abs(self.numPyArray1))
         normInf = ev.NormInf()
-        self.assertEquals(normInf, result)
+        self.assertEqual(normInf, result)
 
     def testNormWeighted(self):
         "Test Epetra.FEVector NormWeighted method"
@@ -417,7 +417,7 @@ class EpetraFEVectorTestCase(unittest.TestCase):
         weights[:] = wts
         result  = sqrt(sum((a/wts)**2)/self.length)
         norm    = ev.NormWeighted(weights)
-        self.assertEquals(norm, result)
+        self.assertEqual(norm, result)
 
     def testMinValue(self):
         "Test Epetra.FEVector MinValue method"
@@ -426,7 +426,7 @@ class EpetraFEVectorTestCase(unittest.TestCase):
         ev[0,:]  = a
         result   = min(self.numPyArray1)
         minValue = ev.MinValue()
-        self.assertEquals(minValue, result)
+        self.assertEqual(minValue, result)
 
     def testMaxValue(self):
         "Test Epetra.FEVector MaxValue method"
@@ -435,7 +435,7 @@ class EpetraFEVectorTestCase(unittest.TestCase):
         ev[0,:]  = a
         result   = max(self.numPyArray2)
         maxValue = ev.MaxValue()
-        self.assertEquals(maxValue, result)
+        self.assertEqual(maxValue, result)
 
     def testMeanValue(self):
         "Test Epetra.FEVector MeanValue method"
@@ -444,7 +444,7 @@ class EpetraFEVectorTestCase(unittest.TestCase):
         ev[0,:]   = a
         result    = sum(self.numPyArray1)/self.length
         meanValue = ev.MeanValue()
-        self.assertEquals(meanValue, result)
+        self.assertEqual(meanValue, result)
 
     # def testSetArray(self):
     #     "Test Epetra.FEVector __setattr__ method for 'array'"

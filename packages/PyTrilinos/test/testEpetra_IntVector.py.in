@@ -86,18 +86,18 @@ class EpetraIntVectorTestCase(unittest.TestCase):
     def testConstructor01(self):
         "Test Epetra.IntVector (BlockMap,bool) constructor"
         eiv = Epetra.IntVector(self.map,True)
-        self.assertEquals(eiv.Label(),        "Epetra::IntVector"       )
-        self.assertEquals(eiv.dtype,          self.dtype                )
-        self.assertEquals(eiv.MyLength(),     self.length               )
-        self.assertEquals(eiv.GlobalLength(), self.length*comm.NumProc())
+        self.assertEqual(eiv.Label(),        "Epetra::IntVector"       )
+        self.assertEqual(eiv.dtype,          self.dtype                )
+        self.assertEqual(eiv.MyLength(),     self.length               )
+        self.assertEqual(eiv.GlobalLength(), self.length*comm.NumProc())
 
     def testConstructor02(self):
         "Test Epetra.IntVector (BlockMap) constructor"
         eiv = Epetra.IntVector(self.map)
-        self.assertEquals(eiv.Label(),        "Epetra::IntVector"       )
-        self.assertEquals(eiv.dtype,          self.dtype                )
-        self.assertEquals(eiv.MyLength(),     self.length               )
-        self.assertEquals(eiv.GlobalLength(), self.length*comm.NumProc())
+        self.assertEqual(eiv.Label(),        "Epetra::IntVector"       )
+        self.assertEqual(eiv.dtype,          self.dtype                )
+        self.assertEqual(eiv.MyLength(),     self.length               )
+        self.assertEqual(eiv.GlobalLength(), self.length*comm.NumProc())
 
     def testConstructor03(self):
         "Test Epetra.IntVector (BlockMap,bad-list) constructor"
@@ -109,90 +109,90 @@ class EpetraIntVectorTestCase(unittest.TestCase):
         "Test Epetra.IntVector (BlockMap,1D-small-list) constructor"
         list = [0, 1, 2, 3]
         eiv = Epetra.IntVector(self.map,list)
-        self.assertEquals(eiv.Label(),        "Epetra::IntVector"       )
-        self.assertEquals(eiv.dtype,          self.dtype                )
-        self.assertEquals(eiv.MyLength(),     self.length               )
-        self.assertEquals(eiv.GlobalLength(), self.length*comm.NumProc())
+        self.assertEqual(eiv.Label(),        "Epetra::IntVector"       )
+        self.assertEqual(eiv.dtype,          self.dtype                )
+        self.assertEqual(eiv.MyLength(),     self.length               )
+        self.assertEqual(eiv.GlobalLength(), self.length*comm.NumProc())
         for i in range(len(list)):
-            self.assertEquals(eiv[i], list[i])
+            self.assertEqual(eiv[i], list[i])
 
     def testConstructor05(self):
         "Test Epetra.IntVector (BlockMap,1D-correct-list) constructor"
         list = [0, 1, 2, 3, 2, 1, 1, 0, 0]
         eiv = Epetra.IntVector(self.map,list)
-        self.assertEquals(eiv.Label(),        "Epetra::IntVector"       )
-        self.assertEquals(eiv.dtype,          self.dtype                )
-        self.assertEquals(eiv.MyLength(),     self.length               )
-        self.assertEquals(eiv.GlobalLength(), self.length*comm.NumProc())
+        self.assertEqual(eiv.Label(),        "Epetra::IntVector"       )
+        self.assertEqual(eiv.dtype,          self.dtype                )
+        self.assertEqual(eiv.MyLength(),     self.length               )
+        self.assertEqual(eiv.GlobalLength(), self.length*comm.NumProc())
         for i in range(len(list)):
-            self.assertEquals(eiv[i], list[i])
+            self.assertEqual(eiv[i], list[i])
 
     def testConstructor06(self):
         "Test Epetra.IntVector (BlockMap,1D-big-list) constructor"
         list = [0, 1, 2, 3, 2, 1, 1, 0, 0, -1, -2]
         eiv = Epetra.IntVector(self.map,list)
-        self.assertEquals(eiv.Label(),        "Epetra::IntVector"       )
-        self.assertEquals(eiv.dtype,          self.dtype                )
-        self.assertEquals(eiv.MyLength(),     self.length               )
-        self.assertEquals(eiv.GlobalLength(), self.length*comm.NumProc())
+        self.assertEqual(eiv.Label(),        "Epetra::IntVector"       )
+        self.assertEqual(eiv.dtype,          self.dtype                )
+        self.assertEqual(eiv.MyLength(),     self.length               )
+        self.assertEqual(eiv.GlobalLength(), self.length*comm.NumProc())
         for i in range(eiv.shape[0]):
-            self.assertEquals(eiv[i], list[i])
+            self.assertEqual(eiv[i], list[i])
 
     def testConstructor07(self):
         "Test Epetra.IntVector (BlockMap,2D-small-list) constructor"
         list = [[0, 1, 2],
                 [2, 1, 1]]
         eiv = Epetra.IntVector(self.map,list)
-        self.assertEquals(eiv.Label(),        "Epetra::IntVector"       )
-        self.assertEquals(eiv.dtype,          self.dtype                )
-        self.assertEquals(eiv.MyLength(),     self.length               )
-        self.assertEquals(eiv.GlobalLength(), self.length*comm.NumProc())
+        self.assertEqual(eiv.Label(),        "Epetra::IntVector"       )
+        self.assertEqual(eiv.dtype,          self.dtype                )
+        self.assertEqual(eiv.MyLength(),     self.length               )
+        self.assertEqual(eiv.GlobalLength(), self.length*comm.NumProc())
         for i in range(len(list)):
             for j in range(len(list[i])):
-                self.assertEquals(eiv[i*3+j], list[i][j])
+                self.assertEqual(eiv[i*3+j], list[i][j])
 
     def testConstructor08(self):
         "Test Epetra.IntVector (BlockMap,2D-big-list) constructor"
         list = [[0, 1, 2, 3,  2,  1],
                 [1, 1, 0, 0, -1, -2]]
         eiv = Epetra.IntVector(self.map,list)
-        self.assertEquals(eiv.Label(),        "Epetra::IntVector"       )
-        self.assertEquals(eiv.dtype,          self.dtype                )
-        self.assertEquals(eiv.MyLength(),     self.length               )
-        self.assertEquals(eiv.GlobalLength(), self.length*comm.NumProc())
+        self.assertEqual(eiv.Label(),        "Epetra::IntVector"       )
+        self.assertEqual(eiv.dtype,          self.dtype                )
+        self.assertEqual(eiv.MyLength(),     self.length               )
+        self.assertEqual(eiv.GlobalLength(), self.length*comm.NumProc())
         for i in range(len(list)):
             for j in range(len(list[i])):
                 ii = i * 6 + j
                 if (ii < eiv.MyLength()):
-                    self.assertEquals(eiv[ii], list[i][j])
+                    self.assertEqual(eiv[ii], list[i][j])
 
     def testConstructor09(self):
         "Test Epetra.IntVector (BlockMap,3D-small-list) constructor"
         list = [[[0, 1], [2, 3]],
                 [[2, 1], [1, 0]]]
         eiv = Epetra.IntVector(self.map,list)
-        self.assertEquals(eiv.Label(),        "Epetra::IntVector"       )
-        self.assertEquals(eiv.dtype,          self.dtype                )
-        self.assertEquals(eiv.MyLength(),     self.length               )
-        self.assertEquals(eiv.GlobalLength(), self.length*comm.NumProc())
+        self.assertEqual(eiv.Label(),        "Epetra::IntVector"       )
+        self.assertEqual(eiv.dtype,          self.dtype                )
+        self.assertEqual(eiv.MyLength(),     self.length               )
+        self.assertEqual(eiv.GlobalLength(), self.length*comm.NumProc())
         for i in range(len(list)):
             for j in range(len(list[i])):
                 for k in range(len(list[i][j])):
-                    self.assertEquals(eiv[4*i+2*j+k], list[i][j][k])
+                    self.assertEqual(eiv[4*i+2*j+k], list[i][j][k])
 
     def testConstructor10(self):
         "Test Epetra.IntVector (BlockMap,3D-correct-list) constructor"
         list = [[[0, 1, 2], [3, 2, 1], [1, 0, 0]]]
         eiv = Epetra.IntVector(self.map,list)
         eiv.shape = (1,3,3)
-        self.assertEquals(eiv.Label(),        "Epetra::IntVector"       )
-        self.assertEquals(eiv.dtype,          self.dtype                )
-        self.assertEquals(eiv.MyLength(),     self.length               )
-        self.assertEquals(eiv.GlobalLength(), self.length*comm.NumProc())
+        self.assertEqual(eiv.Label(),        "Epetra::IntVector"       )
+        self.assertEqual(eiv.dtype,          self.dtype                )
+        self.assertEqual(eiv.MyLength(),     self.length               )
+        self.assertEqual(eiv.GlobalLength(), self.length*comm.NumProc())
         for i in range(len(list)):
             for j in range(len(list[i])):
                 for k in range(len(list[i][j])):
-                    self.assertEquals(eiv[i,j,k], list[i][j][k])
+                    self.assertEqual(eiv[i,j,k], list[i][j][k])
 
     def testConstructor11(self):
         "Test Epetra.IntVector (BlockMap,3D-big-list) constructor"
@@ -200,27 +200,27 @@ class EpetraIntVectorTestCase(unittest.TestCase):
                 [[-1,  0, 1], [2, 3, 2], [1, 1, 0]],
                 [[ 0, -1, 0], [1, 2, 3], [2, 1, 1]]]
         eiv = Epetra.IntVector(self.map,list)
-        self.assertEquals(eiv.Label(),        "Epetra::IntVector"       )
-        self.assertEquals(eiv.dtype,          self.dtype                )
-        self.assertEquals(eiv.MyLength(),     self.length               )
-        self.assertEquals(eiv.GlobalLength(), self.length*comm.NumProc())
+        self.assertEqual(eiv.Label(),        "Epetra::IntVector"       )
+        self.assertEqual(eiv.dtype,          self.dtype                )
+        self.assertEqual(eiv.MyLength(),     self.length               )
+        self.assertEqual(eiv.GlobalLength(), self.length*comm.NumProc())
         for i in range(len(list)):
             for j in range(len(list[i])):
                 for k in range(len(list[i][j])):
                     ii = i*9 + j*3 + k
                     if (ii < eiv.MyLength()):
-                        self.assertEquals(eiv[ii], list[i][j][k])
+                        self.assertEqual(eiv[ii], list[i][j][k])
 
     def testConstructor12(self):
         "Test Epetra.IntVector (1D-list) constructor"
         list = [0, 1, 2, 3, 2, 1, 1, 0, 0]
         eiv = Epetra.IntVector(list)
-        self.assertEquals(eiv.Label(),        "Epetra::IntVector")
-        self.assertEquals(eiv.dtype,          self.dtype         )
-        self.assertEquals(eiv.MyLength(),     len(list)          )
-        self.assertEquals(eiv.GlobalLength(), len(list)          )
+        self.assertEqual(eiv.Label(),        "Epetra::IntVector")
+        self.assertEqual(eiv.dtype,          self.dtype         )
+        self.assertEqual(eiv.MyLength(),     len(list)          )
+        self.assertEqual(eiv.GlobalLength(), len(list)          )
         for i in range(len(list)):
-            self.assertEquals(eiv[i], list[i])
+            self.assertEqual(eiv[i], list[i])
 
     def testConstructor13(self):
         "Test Epetra.IntVector (2D-list) constructor"
@@ -228,13 +228,13 @@ class EpetraIntVectorTestCase(unittest.TestCase):
                 [0, 0, 1, 1, 2, 3, 2, 1, 0]]
         eiv = Epetra.IntVector(list)
         eiv.shape = (2,9)
-        self.assertEquals(eiv.Label(),        "Epetra::IntVector")
-        self.assertEquals(eiv.dtype,          self.dtype         )
-        self.assertEquals(eiv.MyLength(),     2*len(list[0])     )
-        self.assertEquals(eiv.GlobalLength(), 2*len(list[0])     )
+        self.assertEqual(eiv.Label(),        "Epetra::IntVector")
+        self.assertEqual(eiv.dtype,          self.dtype         )
+        self.assertEqual(eiv.MyLength(),     2*len(list[0])     )
+        self.assertEqual(eiv.GlobalLength(), 2*len(list[0])     )
         for i in range(eiv.shape[0]):
             for j in range(len(list[i])):
-                self.assertEquals(eiv[i,j], list[i][j])
+                self.assertEqual(eiv[i,j], list[i][j])
 
     def testConstructor14(self):
         "Test Epetra.IntVector (3D-list) constructor"
@@ -243,13 +243,13 @@ class EpetraIntVectorTestCase(unittest.TestCase):
                 [[3, 2, 1], [0, 0, 0], [1, 1, 2]]]
         eiv = Epetra.IntVector(list)
         eiv.shape = (3,3,3)
-        self.assertEquals(eiv.Label(),        "Epetra::IntVector")
-        self.assertEquals(eiv.dtype,          self.dtype         )
-        self.assertEquals(eiv.MyLength(),     3*3*len(list[0][0]))
-        self.assertEquals(eiv.GlobalLength(), 3*3*len(list[0][0]))
+        self.assertEqual(eiv.Label(),        "Epetra::IntVector")
+        self.assertEqual(eiv.dtype,          self.dtype         )
+        self.assertEqual(eiv.MyLength(),     3*3*len(list[0][0]))
+        self.assertEqual(eiv.GlobalLength(), 3*3*len(list[0][0]))
         for i in range(eiv.shape[0]):
             for j in range(len(list[i])):
-                self.failUnless((eiv[i,j] == list[i][j]).all())
+                self.assertTrue((eiv[i,j] == list[i][j]).all())
 
     def testConstructor15(self):
         "Test Epetra.IntVector (bad-list) constructor"
@@ -260,46 +260,46 @@ class EpetraIntVectorTestCase(unittest.TestCase):
     def testConstructor16(self):
         "Test Epetra.IntVector copy constructor"
         eiv1 = Epetra.IntVector(self.map)
-        self.assertEquals(eiv1.dtype, self.dtype)
+        self.assertEqual(eiv1.dtype, self.dtype)
         eiv2 = Epetra.IntVector(eiv1)
-        self.assertEquals(eiv2.Label(),        eiv1.Label()       )
-        self.assertEquals(eiv2.dtype,          self.dtype         )
-        self.assertEquals(eiv2.MyLength(),     eiv1.MyLength()    )
-        self.assertEquals(eiv2.GlobalLength(), eiv1.GlobalLength())
+        self.assertEqual(eiv2.Label(),        eiv1.Label()       )
+        self.assertEqual(eiv2.dtype,          self.dtype         )
+        self.assertEqual(eiv2.MyLength(),     eiv1.MyLength()    )
+        self.assertEqual(eiv2.GlobalLength(), eiv1.GlobalLength())
         for i in range(len(eiv1)):
-            self.assertEquals(eiv1[i], eiv2[i])
+            self.assertEqual(eiv1[i], eiv2[i])
 
     def testPutValue(self):
         "Test Epetra.IntVector PutValue method"
         eiv = Epetra.IntVector(self.map)
-        self.assertEquals(eiv.dtype, self.dtype)
+        self.assertEqual(eiv.dtype, self.dtype)
         for i in range(self.map.NumMyPoints()):
-            self.assertEquals(eiv[i], 0)
+            self.assertEqual(eiv[i], 0)
         value = 789
         result = eiv.PutValue(value)
-        self.assertEquals(result, 0)
+        self.assertEqual(result, 0)
         for i in range(self.map.NumMyPoints()):
-            self.assertEquals(eiv[i], value)
+            self.assertEqual(eiv[i], value)
 
     def testExtractCopy(self):
         "Test Epetra.IntVector ExtractCopy method"
         a     = self.numPyArray1
         eiv   = Epetra.IntVector(self.map,a)
         array = eiv.ExtractCopy()
-        self.assertEquals(type(array), ndarray)
-        self.failUnless((eiv[:] == array[:]).all())
-        self.assertEquals(eiv.array is array, False)
+        self.assertEqual(type(array), ndarray)
+        self.assertTrue((eiv[:] == array[:]).all())
+        self.assertEqual(eiv.array is array, False)
 
     def testExtractView(self):
         "Test Epetra.IntVector ExtractView method"
         a     = self.numPyArray1
         eiv   = Epetra.IntVector(self.map,a)
         array = eiv.ExtractView()
-        self.assertEquals(type(array), ndarray)
+        self.assertEqual(type(array), ndarray)
         for i in range(self.map.NumMyPoints()):
-            self.assertEquals(eiv[i], array[i])
+            self.assertEqual(eiv[i], array[i])
         # This will fail as long as we still use UserArray
-        #self.assertEquals(eiv.array is array, True)
+        #self.assertEqual(eiv.array is array, True)
 
     def testPrint(self):
         "Test Epetra.IntVector Print method"
@@ -324,7 +324,7 @@ class EpetraIntVectorTestCase(unittest.TestCase):
         eiv      = Epetra.IntVector(self.map,a)
         result   = min(self.numPyArray1)
         minValue = eiv.MinValue()
-        self.assertEquals(minValue, result)
+        self.assertEqual(minValue, result)
 
     def testMaxValue(self):
         "Test Epetra.IntVector MaxValue method"
@@ -332,7 +332,7 @@ class EpetraIntVectorTestCase(unittest.TestCase):
         eiv      = Epetra.IntVector(self.map,a)
         result   = max(self.numPyArray2)
         maxValue = eiv.MaxValue()
-        self.assertEquals(maxValue, result)
+        self.assertEqual(maxValue, result)
 
     def testSetArray(self):
         "Test Epetra.IntVector __setattr__ method for 'array'"
@@ -349,10 +349,10 @@ class EpetraIntVectorTestCase(unittest.TestCase):
         a     = self.numPyArray1
         eiv   = Epetra.IntVector(self.map,a)
         array = eiv.Values()
-        self.assertEquals(type(array), ndarray)
-        self.failUnless((eiv[:] == array[:]).all())
+        self.assertEqual(type(array), ndarray)
+        self.assertTrue((eiv[:] == array[:]).all())
         # This will fail as long as we use UserArray
-        #self.assertEquals(eiv.array is array, True)
+        #self.assertEqual(eiv.array is array, True)
 
 ##########################################################################
 

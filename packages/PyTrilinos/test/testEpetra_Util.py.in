@@ -90,12 +90,12 @@ class EpetraUtilTestCase(unittest.TestCase):
 
     def testConstructor0(self):
         "Test Epetra.Util default constructor"
-        self.failUnless(isinstance(self.util, Epetra.Util))
+        self.assertTrue(isinstance(self.util, Epetra.Util))
         
     def testConstructor1(self):
         "Test Epetra.Util copy constructor"
         u2 = Epetra.Util(self.util)
-        self.failUnless(isinstance(u2, Epetra.Util))
+        self.assertTrue(isinstance(u2, Epetra.Util))
         self.assertEqual(self.util.Seed(), u2.Seed())
 
     def testRandomInt(self):
@@ -106,9 +106,9 @@ class EpetraUtilTestCase(unittest.TestCase):
         for sample in xrange(numSamples):
             ri = self.util.RandomInt()
             count[ri] = count.get(ri,0) + 1
-            self.failUnless(ri >= 0     )
-            self.failUnless(ri <= maxInt)
-        self.failUnless(len(count) > 9*numSamples/10)
+            self.assertTrue(ri >= 0     )
+            self.assertTrue(ri <= maxInt)
+        self.assertTrue(len(count) > 9*numSamples/10)
 
     def testRandomDouble(self):
         "Test Epetra.Util RandomDouble method"
@@ -117,8 +117,8 @@ class EpetraUtilTestCase(unittest.TestCase):
         for sample in xrange(numSamples):
             rd = self.util.RandomDouble()
             count[rd] = count.get(rd,0) + 1
-            self.failUnless(abs(rd) < 1.0)
-        self.failUnless(len(count) > 9*numSamples/10)
+            self.assertTrue(abs(rd) < 1.0)
+        self.assertTrue(len(count) > 9*numSamples/10)
 
     def testSetSeed(self):
         "Test Epetra.Util SetSeed/Seed methods"

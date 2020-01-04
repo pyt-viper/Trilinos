@@ -77,7 +77,7 @@ class TeuchosTestCase(unittest.TestCase):
         "Test Teuchos Teuchos_Version function"
         front   = "Teuchos in Trilinos "
         version = Teuchos.Teuchos_Version()
-        self.assertEquals(version[:len(front)], front)
+        self.assertEqual(version[:len(front)], front)
 
 ####################################################################
 
@@ -87,32 +87,32 @@ class TeuchosXMLTestCase(unittest.TestCase):
     def testXMLObjectConstructor0(self):
         "Test Teuchos XMLObject empty constructor"
         xmlObj = Teuchos.XMLObject()
-        self.failUnless(xmlObj.isEmpty())
+        self.assertTrue(xmlObj.isEmpty())
 
     def testXMLObjectConstructor1(self):
         "Test Teuchos XMLObject string constructor"
         tag    = "Parameters"
         xmlObj = Teuchos.XMLObject(tag)
-        self.failIf(xmlObj.isEmpty())
+        self.assertFalse(xmlObj.isEmpty())
 
     def testXMLObjectDeepCopy(self):
         "Test Teuchos XMLObject deepCopy() method"
         tag    = "Parameters"
         xmlObj = Teuchos.XMLObject(tag)
         xmlCpy = xmlObj.deepCopy()
-        self.assertEquals(xmlCpy.getTag(), xmlObj.getTag())
+        self.assertEqual(xmlCpy.getTag(), xmlObj.getTag())
 
     def testXMLObjectDeepCopyEmpty(self):
         "Test Teuchos XMLObject deepCopy() method, empty"
         xmlObj = Teuchos.XMLObject()
         xmlCopy = xmlObj.deepCopy()
-        self.assertEquals(type(xmlCopy), Teuchos.XMLObject)
+        self.assertEqual(type(xmlCopy), Teuchos.XMLObject)
 
     def testXMLObjectGetTag(self):
         "Test Teuchos XMLObject getTag() method"
         tag    = "Parameters"
         xmlObj = Teuchos.XMLObject(tag)
-        self.assertEquals(xmlObj.getTag(), tag)
+        self.assertEqual(xmlObj.getTag(), tag)
 
     def testXMLObjectGetTagEmpty(self):
         "Test Teuchos XMLObject getTag() method, empty"
@@ -128,7 +128,7 @@ class TeuchosXMLTestCase(unittest.TestCase):
         "Test Teuchos XMLObject add/get attribute() methods"
         xmlObj = Teuchos.XMLObject("tag")
         xmlObj.addAttribute("date","today")
-        self.assertEquals(xmlObj.getAttribute("date"), "today")
+        self.assertEqual(xmlObj.getAttribute("date"), "today")
 
     def testXMLObjectBadAttribute(self):
         "Test Teuchos XMLObject getAttribute() method, nonexistent"
@@ -138,56 +138,56 @@ class TeuchosXMLTestCase(unittest.TestCase):
     def testXMLObjectHasAttribute(self):
         "Test Teuchos XMLObject hasAttribute() methods"
         xmlObj = Teuchos.XMLObject("tag")
-        self.failIf(xmlObj.hasAttribute("date"))
+        self.assertFalse(xmlObj.hasAttribute("date"))
         xmlObj.addAttribute("date","today")
-        self.failUnless(xmlObj.hasAttribute("date"))
+        self.assertTrue(xmlObj.hasAttribute("date"))
 
     def testXMLObjectGetRequired(self):
         "Test Teuchos XMLObject getRequired() method"
         xmlObj = Teuchos.XMLObject("tag")
         self.assertRaises(RuntimeError, xmlObj.getRequired, "date")
         xmlObj.addAttribute("date","today")
-        self.assertEquals(xmlObj.getRequired("date"), "today")
+        self.assertEqual(xmlObj.getRequired("date"), "today")
 
     def testXMLObjectGetRequiredDouble(self):
         "Test Teuchos XMLObject getRequiredDouble() method"
         xmlObj = Teuchos.XMLObject("tag")
         self.assertRaises(RuntimeError, xmlObj.getRequiredDouble, "pi")
         xmlObj.addDouble("pi",3.14)
-        self.assertEquals(xmlObj.getRequiredDouble("pi"), 3.14)
+        self.assertEqual(xmlObj.getRequiredDouble("pi"), 3.14)
 
     def testXMLObjectGetRequiredInt(self):
         "Test Teuchos XMLObject getRequiredInt() method"
         xmlObj = Teuchos.XMLObject("tag")
         self.assertRaises(RuntimeError, xmlObj.getRequiredInt, "year")
         xmlObj.addInt("year",2007)
-        self.assertEquals(xmlObj.getRequiredInt("year"), 2007)
+        self.assertEqual(xmlObj.getRequiredInt("year"), 2007)
 
     def testXMLObjectGetRequiredBool(self):
         "Test Teuchos XMLObject getRequiredBool() method"
         xmlObj = Teuchos.XMLObject("tag")
         self.assertRaises(RuntimeError, xmlObj.getRequiredBool, "flag")
         xmlObj.addBool("flag",True)
-        self.assertEquals(xmlObj.getRequiredBool("flag"), True)
+        self.assertEqual(xmlObj.getRequiredBool("flag"), True)
 
     # This test causes a segfault on the Linux test harness machine
     #def testXMLObjectGetWithDefault(self):
     #    "Test Teuchos XMLObject getWithDefault() method"
     #    xmlObj = Teuchos.XMLObject("tag")
-    #    self.assertEquals(xmlObj.getWithDefault("country","USA"), "USA")
+    #    self.assertEqual(xmlObj.getWithDefault("country","USA"), "USA")
     #    xmlObj.addAttribute("country", "Canada")
-    #    self.assertEquals(xmlObj.getWithDefault("country","USA"), "Canada")
+    #    self.assertEqual(xmlObj.getWithDefault("country","USA"), "Canada")
 
     def testXMLObjectChild(self):
         "Test Teuchos XMLObject add/get child() methods"
         p = Teuchos.XMLObject("parent")
-        self.assertEquals(p.numChildren(), 0)
+        self.assertEqual(p.numChildren(), 0)
         #self.assertRaises(RuntimeError, p.getChild, 0)
         c = Teuchos.XMLObject("child")
         p.addChild(c)
-        self.assertEquals(p.numChildren(), 1)
+        self.assertEqual(p.numChildren(), 1)
         r = p.getChild(0)
-        self.assertEquals(r.getTag(), c.getTag())
+        self.assertEqual(r.getTag(), c.getTag())
 
     def testXMLObjectContent(self):
         "Test Teuchos XMLObject add/get content() methods"
@@ -196,13 +196,13 @@ class TeuchosXMLTestCase(unittest.TestCase):
                 "All mimsy were the borogoves,"     ,
                 "And the mome raths outgrabe."       ]
         p = Teuchos.XMLObject("Jabberwocky")
-        self.assertEquals(p.numContentLines(), 0)
+        self.assertEqual(p.numContentLines(), 0)
         #self.assertRaises(RuntimeError, p.getContentLine, 0)
         for i in range(len(poem)):
             p.addContent(poem[i])
-            self.assertEquals(p.numContentLines(), i+1)
+            self.assertEqual(p.numContentLines(), i+1)
         for i in range(len(poem)):
-            self.assertEquals(p.getContentLine(i), poem[i])
+            self.assertEqual(p.getContentLine(i), poem[i])
 
     def testXMLObjectToStringEmpty(self):
         "Test Teuchos XMLObject toString() method, empty"
@@ -212,17 +212,17 @@ class TeuchosXMLTestCase(unittest.TestCase):
     def testXMLObjectHeader(self):
         "Test Teuchos XMLObject header() method"
         xmlObj = Teuchos.XMLObject("header")
-        self.assertEquals(xmlObj.header(), "<header>")
+        self.assertEqual(xmlObj.header(), "<header>")
 
     def testXMLObjectTerminatedHeader(self):
         "Test Teuchos XMLObject terminatedHeader() method"
         xmlObj = Teuchos.XMLObject("header")
-        self.assertEquals(xmlObj.terminatedHeader(), "<header/>")
+        self.assertEqual(xmlObj.terminatedHeader(), "<header/>")
 
     def testXMLObjectFooter(self):
         "Test Teuchos XMLObject footer() method"
         xmlObj = Teuchos.XMLObject("footer")
-        self.assertEquals(xmlObj.footer(), "</footer>")
+        self.assertEqual(xmlObj.footer(), "</footer>")
 
     def testXMLObjectCheckTag(self):
         "Test Teuchos XMLObject checkTag() method"
@@ -244,7 +244,7 @@ class TeuchosXMLTestCase(unittest.TestCase):
         for parameter in dict:
             value = dict[parameter]
             pType = type(value)
-            self.assertEquals(pType(pList[parameter]), value)
+            self.assertEqual(pType(pList[parameter]), value)
 
 ####################################################################
 
@@ -304,29 +304,29 @@ class TeuchosTimeTestCase(unittest.TestCase):
 
     def testConstructor1(self):
         "Test Teuchos Time string constructor"
-        self.assertEquals(self.timer.name(), self.name)
-        self.failIf(self.timer.isRunning())
+        self.assertEqual(self.timer.name(), self.name)
+        self.assertFalse(self.timer.isRunning())
 
     def testConstructor2(self):
         "Test Teuchos Time string,bool constructor"
         timer = Teuchos.Time(self.name, True)
-        self.assertEquals(timer.name(), self.name)
-        self.failUnless(timer.isRunning())
+        self.assertEqual(timer.name(), self.name)
+        self.assertTrue(timer.isRunning())
 
     def testStartStop(self):
         "Test Teuchos Time start() and stop() methods"
-        self.failIf(self.timer.isRunning())
+        self.assertFalse(self.timer.isRunning())
         self.timer.start()
-        self.failUnless(self.timer.isRunning())
+        self.assertTrue(self.timer.isRunning())
         self.timer.stop()
-        self.failIf(self.timer.isRunning())
+        self.assertFalse(self.timer.isRunning())
 
     #def testTotalElapsedTime(self):
     #    "Test Teuchos Time totalElapsedTime() method"
     #    self.timer.start()
     #    sleep(self.duration)
     #    self.timer.stop()
-    #    self.failUnless(self.timer.totalElapsedTime() >= self.duration*0.9)
+    #    self.assertTrue(self.timer.totalElapsedTime() >= self.duration*0.9)
 
     def testReset(self):
         "Test Teuchos Time reset() method"
@@ -334,21 +334,21 @@ class TeuchosTimeTestCase(unittest.TestCase):
         sleep(self.duration)
         self.timer.stop()
         self.timer.reset()
-        self.assertEquals(self.timer.totalElapsedTime(), 0)
+        self.assertEqual(self.timer.totalElapsedTime(), 0)
 
     def testNumCalls(self):
         "Test Teuchos Time numCalls() method"
-        self.assertEquals(self.timer.numCalls(), 0)
+        self.assertEqual(self.timer.numCalls(), 0)
         self.timer.incrementNumCalls()
-        self.assertEquals(self.timer.numCalls(), 1)
+        self.assertEqual(self.timer.numCalls(), 1)
         self.timer.incrementNumCalls()
-        self.assertEquals(self.timer.numCalls(), 2)
+        self.assertEqual(self.timer.numCalls(), 2)
         self.timer.reset()
-        self.assertEquals(self.timer.numCalls(), 0)
+        self.assertEqual(self.timer.numCalls(), 0)
 
     #def testWallTime(self):
     #    "Test Teuchos Time wallTime() method"
-    #    self.failUnless(self.timer.wallTime() > 2*self.duration*0.9)
+    #    self.assertTrue(self.timer.wallTime() > 2*self.duration*0.9)
 
 ####################################################################
 

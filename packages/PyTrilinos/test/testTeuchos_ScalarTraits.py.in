@@ -83,83 +83,83 @@ class TeuchosScalarTraitsFloatTestCase(unittest.TestCase):
 
     def testConstructor(self):
         "Test Teuchos.ScalarTraitsFloat constructor"
-        self.failUnless(isinstance(self.traits, Teuchos.ScalarTraitsFloat))
+        self.assertTrue(isinstance(self.traits, Teuchos.ScalarTraitsFloat))
 
     def testEps(self):
         "Test Teuchos.ScalarTraitsFloat eps() method"
-        self.failUnless(self.traits.eps() < 1.0e-6)
+        self.assertTrue(self.traits.eps() < 1.0e-6)
 
     def testSfmin(self):
         "Test Teuchos.ScalarTraitsFloat sfmin() method"
-        self.failUnless(self.traits.sfmin() < 1.0e-30)
+        self.assertTrue(self.traits.sfmin() < 1.0e-30)
 
     def testBase(self):
         "Test Teuchos.ScalarTraitsFloat base() method"
-        self.failUnless(self.traits.base() in (2.0,))
+        self.assertTrue(self.traits.base() in (2.0,))
 
     def testPrec(self):
         "Test Teuchos.ScalarTraitsFloat prec() method"
-        self.failUnless(self.traits.prec() < 1.0e-6)
+        self.assertTrue(self.traits.prec() < 1.0e-6)
 
     def testT(self):
         "Test Teuchos.ScalarTraitsFloat t() method"
-        self.failUnless(self.traits.t() > 20)
+        self.assertTrue(self.traits.t() > 20)
 
     def testRnd(self):
         "Test Teuchos.ScalarTraitsFloat rnd() method"
-        self.failUnless(self.traits.rnd() in (0.0, 1.0))
+        self.assertTrue(self.traits.rnd() in (0.0, 1.0))
 
     def testEmin(self):
         "Test Teuchos.ScalarTraitsFloat emin() method"
-        self.failUnless(self.traits.emin() < -100)
+        self.assertTrue(self.traits.emin() < -100)
 
     def testRmin(self):
         "Test Teuchos.ScalarTraitsFloat rmin() method"
-        self.failUnless(self.traits.rmin() < 1.0e-30)
+        self.assertTrue(self.traits.rmin() < 1.0e-30)
 
     def testEmax(self):
         "Test Teuchos.ScalarTraitsFloat emax() method"
-        self.failUnless(self.traits.emax() > 100)
+        self.assertTrue(self.traits.emax() > 100)
 
     def testRmax(self):
         "Test Teuchos.ScalarTraitsFloat rmax() method"
-        self.failUnless(self.traits.rmax() > 1.0e30)
+        self.assertTrue(self.traits.rmax() > 1.0e30)
 
     def testMagnitude(self):
         "Test Teuchos.ScalarTraitsFloat magnitude() method"
-        self.assertEquals(self.traits.magnitude(10), 10)
+        self.assertEqual(self.traits.magnitude(10), 10)
 
     def testZero(self):
         "Test Teuchos.ScalarTraitsFloat zero() method"
-        self.assertEquals(self.traits.zero(), 0)
+        self.assertEqual(self.traits.zero(), 0)
 
     def testOne(self):
         "Test Teuchos.ScalarTraitsFloat one() method"
-        self.assertEquals(self.traits.one(), 1)
+        self.assertEqual(self.traits.one(), 1)
 
     def testReal(self):
         "Test Teuchos.ScalarTraitsFloat real() method"
-        self.assertEquals(self.traits.real(3), 3)
+        self.assertEqual(self.traits.real(3), 3)
 
     def testImag(self):
         "Test Teuchos.ScalarTraitsFloat imag() method"
-        self.assertEquals(self.traits.imag(2.718), 0)
+        self.assertEqual(self.traits.imag(2.718), 0)
 
     def testConjugate(self):
         "Test Teuchos.ScalarTraitsFloat conjugate() method"
-        self.failUnless(self.traits.conjugate(1), 1)
+        self.assertTrue(self.traits.conjugate(1), 1)
 
     def testNan(self):
         "Test Teuchos.ScalarTraitsFloat nan() method"
-        self.assertEquals(str(self.traits.nan()), "nan")
+        self.assertEqual(str(self.traits.nan()), "nan")
 
     def testIsnaninfNan(self):
         "Test Teuchos.ScalarTraitsFloat isnaninf() method for NaN"
-        self.failUnless(self.traits.isnaninf(numpy.nan))
+        self.assertTrue(self.traits.isnaninf(numpy.nan))
 
     def testIsnaninfNum(self):
         "Test Teuchos.ScalarTraitsFloat isnaninf() method for number"
-        self.failIf(self.traits.isnaninf(3))
+        self.assertFalse(self.traits.isnaninf(3))
 
     def testSeedrandom(self):
         "Test Teuchos.ScalarTraitsFloat seedrandom() method"
@@ -169,32 +169,32 @@ class TeuchosScalarTraitsFloatTestCase(unittest.TestCase):
     def testRandom(self):
         "Test Teuchos.ScalarTraitsFloat random() method"
         r = self.traits.random()
-        self.failUnless(r > -1)
-        self.failUnless(r <  1)
+        self.assertTrue(r > -1)
+        self.assertTrue(r <  1)
 
     def testName(self):
         "Test Teuchos.ScalarTraitsFloat name() method"
-        self.assertEquals(self.traits.name(), "float")
+        self.assertEqual(self.traits.name(), "float")
 
     def testSquareroot(self):
         "Test Teuchos.ScalarTraitsFloat squareroot() method"
-        self.failUnlessEqual(self.traits.squareroot(25), 5)
+        self.assertEqual(self.traits.squareroot(25), 5)
 
     def testPow(self):
         "Test Teuchos.ScalarTraitsFloat pow() method"
-        self.failUnless(self.traits.pow(2,5), 32)
+        self.assertTrue(self.traits.pow(2,5), 32)
 
     def testIsComplex(self):
         "Test Teuchos.ScalarTraitsFloat isComplex attribute"
-        self.failIf(self.traits.isComplex)
+        self.assertFalse(self.traits.isComplex)
 
     def testIsComparable(self):
         "Test Teuchos.ScalarTraitsFloat isComparable attribute"
-        self.failUnless(self.traits.isComparable)
+        self.assertTrue(self.traits.isComparable)
 
     def testHasMachineParameters(self):
         "Test Teuchos.ScalarTraitsFloat hasMachineParameters attribute"
-        self.failUnless(self.traits.hasMachineParameters)
+        self.assertTrue(self.traits.hasMachineParameters)
 
 ####################################################################
 
@@ -211,87 +211,87 @@ class TeuchosScalarTraitsDoubleTestCase(unittest.TestCase):
 
     def testConstructor(self):
         "Test Teuchos.ScalarTraitsDouble constructor"
-        self.failUnless(isinstance(self.traits, Teuchos.ScalarTraitsDouble))
+        self.assertTrue(isinstance(self.traits, Teuchos.ScalarTraitsDouble))
 
     def testEps(self):
         "Test Teuchos.ScalarTraitsDouble eps() method"
-        self.failUnless(self.traits.eps() < 1.0e-15)
+        self.assertTrue(self.traits.eps() < 1.0e-15)
 
     def testSfmin(self):
         "Test Teuchos.ScalarTraitsDouble sfmin() method"
-        self.failUnless(self.traits.sfmin() < 1.0e-300)
+        self.assertTrue(self.traits.sfmin() < 1.0e-300)
 
     def testBase(self):
         "Test Teuchos.ScalarTraitsDouble base() method"
-        self.failUnless(self.traits.base() in (2.0,))
+        self.assertTrue(self.traits.base() in (2.0,))
 
     def testPrec(self):
         "Test Teuchos.ScalarTraitsDouble prec() method"
-        self.failUnless(self.traits.prec() < 1.0e-15)
+        self.assertTrue(self.traits.prec() < 1.0e-15)
 
     def testT(self):
         "Test Teuchos.ScalarTraitsDouble t() method"
-        self.failUnless(self.traits.t() > 50)
+        self.assertTrue(self.traits.t() > 50)
 
     def testRnd(self):
         "Test Teuchos.ScalarTraitsDouble rnd() method"
-        self.failUnless(self.traits.rnd() in (0.0, 1.0))
+        self.assertTrue(self.traits.rnd() in (0.0, 1.0))
 
     def testEmin(self):
         "Test Teuchos.ScalarTraitsDouble emin() method"
-        self.failUnless(self.traits.emin() < -1000)
+        self.assertTrue(self.traits.emin() < -1000)
 
     def testRmin(self):
         "Test Teuchos.ScalarTraitsDouble rmin() method"
-        self.failUnless(self.traits.rmin() < 1.0e-300)
+        self.assertTrue(self.traits.rmin() < 1.0e-300)
 
     def testEmax(self):
         "Test Teuchos.ScalarTraitsDouble emax() method"
-        self.failUnless(self.traits.emax() > 1000)
+        self.assertTrue(self.traits.emax() > 1000)
 
     def testRmax(self):
         "Test Teuchos.ScalarTraitsDouble rmax() method"
-        self.failUnless(self.traits.rmax() > 1.0e300)
+        self.assertTrue(self.traits.rmax() > 1.0e300)
 
     def testMagnitude(self):
         "Test Teuchos.ScalarTraitsDouble magnitude() method"
-        self.assertEquals(self.traits.magnitude(10), 10)
+        self.assertEqual(self.traits.magnitude(10), 10)
 
     def testZero(self):
         "Test Teuchos.ScalarTraitsDouble zero() method"
-        self.assertEquals(self.traits.zero(), 0)
+        self.assertEqual(self.traits.zero(), 0)
 
     def testOne(self):
         "Test Teuchos.ScalarTraitsDouble one() method"
-        self.assertEquals(self.traits.one(), 1)
+        self.assertEqual(self.traits.one(), 1)
 
     def testReal(self):
         "Test Teuchos.ScalarTraitsDouble real() method"
-        self.assertEquals(self.traits.real(3.14), 3.14)
+        self.assertEqual(self.traits.real(3.14), 3.14)
 
     def testImag(self):
         "Test Teuchos.ScalarTraitsDouble imag() method"
-        self.assertEquals(self.traits.imag(2.718), 0)
+        self.assertEqual(self.traits.imag(2.718), 0)
 
     def testConjugate(self):
         "Test Teuchos.ScalarTraitsDouble conjugate() method"
-        self.failUnless(self.traits.conjugate(1), 1)
+        self.assertTrue(self.traits.conjugate(1), 1)
 
     def testNan(self):
         "Test Teuchos.ScalarTraitsDouble nan() method"
-        self.assertEquals(str(self.traits.nan()), "nan")
+        self.assertEqual(str(self.traits.nan()), "nan")
 
     def testIsnaninfNan(self):
         "Test Teuchos.ScalarTraitsDouble isnaninf() method for NaN"
-        self.failUnless(self.traits.isnaninf(numpy.nan))
+        self.assertTrue(self.traits.isnaninf(numpy.nan))
 
     def testIsnaninfInf(self):
         "Test Teuchos.ScalarTraitsDouble isnaninf() method for Inf"
-        self.failUnless(self.traits.isnaninf(numpy.inf))
+        self.assertTrue(self.traits.isnaninf(numpy.inf))
 
     def testIsnaninfNum(self):
         "Test Teuchos.ScalarTraitsDouble isnaninf() method for number"
-        self.failIf(self.traits.isnaninf(3))
+        self.assertFalse(self.traits.isnaninf(3))
 
     def testSeedrandom(self):
         "Test Teuchos.ScalarTraitsDouble seedrandom() method"
@@ -301,32 +301,32 @@ class TeuchosScalarTraitsDoubleTestCase(unittest.TestCase):
     def testRandom(self):
         "Test Teuchos.ScalarTraitsDouble random() method"
         r = self.traits.random()
-        self.failUnless(r > -1)
-        self.failUnless(r <  1)
+        self.assertTrue(r > -1)
+        self.assertTrue(r <  1)
 
     def testName(self):
         "Test Teuchos.ScalarTraitsDouble name() method"
-        self.assertEquals(self.traits.name(), "double")
+        self.assertEqual(self.traits.name(), "double")
 
     def testSquareroot(self):
         "Test Teuchos.ScalarTraitsDouble squareroot() method"
-        self.failUnlessEqual(self.traits.squareroot(25), 5)
+        self.assertEqual(self.traits.squareroot(25), 5)
 
     def testPow(self):
         "Test Teuchos.ScalarTraitsDouble pow() method"
-        self.failUnless(self.traits.pow(2,5), 32)
+        self.assertTrue(self.traits.pow(2,5), 32)
 
     def testIsComplex(self):
         "Test Teuchos.ScalarTraitsDouble isComplex attribute"
-        self.failIf(self.traits.isComplex)
+        self.assertFalse(self.traits.isComplex)
 
     def testIsComparable(self):
         "Test Teuchos.ScalarTraitsDouble isComparable attribute"
-        self.failUnless(self.traits.isComparable)
+        self.assertTrue(self.traits.isComparable)
 
     def testHasMachineParameters(self):
         "Test Teuchos.ScalarTraitsDouble hasMachineParameters attribute"
-        self.failUnless(self.traits.hasMachineParameters)
+        self.assertTrue(self.traits.hasMachineParameters)
 
 ####################################################################
 
@@ -343,12 +343,12 @@ class TeuchosScalarTraitsTestCase(unittest.TestCase):
     def testFloat(self):
         "Test Teuchos.ScalarTraits factory for float"
         traits = Teuchos.ScalarTraits('f')
-        self.failUnless(isinstance(traits, Teuchos.ScalarTraitsFloat))
+        self.assertTrue(isinstance(traits, Teuchos.ScalarTraitsFloat))
 
     def testDouble(self):
         "Test Teuchos.ScalarTraits factory for double"
         traits = Teuchos.ScalarTraits('d')
-        self.failUnless(isinstance(traits, Teuchos.ScalarTraitsDouble))
+        self.assertTrue(isinstance(traits, Teuchos.ScalarTraitsDouble))
 
     def testBad(self):
         "Test Teuchos.ScalarTraits factory for bad argument"

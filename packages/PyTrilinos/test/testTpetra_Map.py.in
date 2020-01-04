@@ -136,9 +136,9 @@ class TpetraMapTestCase(unittest.TestCase):
 
     def testIsOneToOne(self):
         "Test Tpetra.Map isOneToOne method"
-        self.assert_(self.map1.isOneToOne())
-        self.assert_(self.map2.isOneToOne())
-        self.assert_(self.map3.isOneToOne())
+        self.assertTrue(self.map1.isOneToOne())
+        self.assertTrue(self.map2.isOneToOne())
+        self.assertTrue(self.map3.isOneToOne())
 
     def testGetGlobalNumElements(self):
         "Test Tpetra.Map getGlobalNumElements method"
@@ -220,14 +220,14 @@ class TpetraMapTestCase(unittest.TestCase):
             pidList[start:] += 1
             lidList[start:start+length] = list(range(length))
         result = self.map3.getRemoteIndexList(gidList)
-        self.failUnless((result[0] == pidList).all())
-        self.failUnless((result[1] == lidList).all())
+        self.assertTrue((result[0] == pidList).all())
+        self.assertTrue((result[1] == lidList).all())
         self.assertEqual(result[2], Tpetra.AllIDsPresent)
 
     def testGetNodeElementList(self):
         "Test Tpetra.Map getNodeElementList method"
         result = self.map3.getNodeElementList()
-        self.failUnless((result == self.myGlobalEls).all())
+        self.assertTrue((result == self.myGlobalEls).all())
 
     def testIsNodeLocalElement(self):
         "Test Tpetra.Map isNodeLocalElement method"
@@ -295,9 +295,9 @@ class TpetraMapTestCase(unittest.TestCase):
 
     def testStr(self):
         "Test Tpetra.Map __str__ method"
-        self.assertEquals(self.map1.__str__(), self.map1.description())
-        self.assertEquals(self.map2.__str__(), self.map2.description())
-        self.assertEquals(self.map3.__str__(), self.map3.description())
+        self.assertEqual(self.map1.__str__(), self.map1.description())
+        self.assertEqual(self.map2.__str__(), self.map2.description())
+        self.assertEqual(self.map3.__str__(), self.map3.description())
 
     def testComm(self):
         "Test Tpetra.Map Comm method"
